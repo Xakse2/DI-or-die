@@ -16,6 +16,7 @@ export default tseslint.config(
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parser: tseslint.parser,
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
@@ -33,6 +34,7 @@ export default tseslint.config(
       ...prettier.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
       ...eslintPluginUnicorn.configs.recommended.rules,
+
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -51,6 +53,10 @@ export default tseslint.config(
         },
       ],
       'unicorn/prefer-query-selector': 'warn',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
 );
