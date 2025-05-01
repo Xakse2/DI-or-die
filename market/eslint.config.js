@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint';
 import eslintReact from 'eslint-plugin-react';
 import prettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
   { ignores: ['node_modules', 'dist'] },
@@ -25,16 +26,31 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       react: eslintReact,
       prettier: prettier,
+      unicorn: eslintPluginUnicorn,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...prettier.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
+      ...eslintPluginUnicorn.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
       'prefer-const': 'error',
+      'unicorn/filename-case': 'off',
+      'unicorn/prevent-abbreviations': [
+        'error',
+        {
+          allowList: {
+            acc: true,
+            env: true,
+            i: true,
+            j: true,
+          },
+        },
+      ],
+      'unicorn/prefer-query-selector': 'warn',
     },
   },
 );
