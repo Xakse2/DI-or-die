@@ -52,7 +52,7 @@ export default tseslint.config(
           },
         },
       ],
-      'unicorn/prefer-query-selector': 'warn',
+      'unicorn/prefer-query-selector': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
