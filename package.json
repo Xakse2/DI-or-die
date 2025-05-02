@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && npx stylelint \"**/*.css\"",
+    "lint": "eslint . --quiet && npx stylelint \"**/*.css\" --quiet",
     "lint:fix": "eslint . --fix && npx stylelint \"**/*.css\" --fix",
     "preview": "vite preview",
-    "format": "prettier --write .",
+    "format": "prettier --write . --quiet",
     "check": "prettier --check .",
     "prepare": "husky",
     "test": "vitest"

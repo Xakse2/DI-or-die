@@ -55,8 +55,8 @@ export default tseslint.config(
       'unicorn/prefer-query-selector': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-floating-promises': 'error',
-      '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/prefer-nullish-coalescing': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
     },
   },
 );
