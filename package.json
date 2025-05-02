@@ -9,7 +9,7 @@
     "lint": "eslint . --quiet && npx stylelint \"**/*.css\" --quiet",
     "lint:fix": "eslint . --fix && npx stylelint \"**/*.css\" --fix",
     "preview": "vite preview",
-    "format": "prettier --write . --quiet",
+    "format": "prettier --write . --log-level silent",
     "check": "prettier --check .",
     "prepare": "husky",
     "test": "vitest"
