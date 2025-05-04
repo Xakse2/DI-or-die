@@ -15,7 +15,7 @@ The store is implemented on an eCommerce platform
 - ⚡ Vite
 - 🧪 Vitest
 
-#### 🎨 Frontend
+#### 🏢 Backend
 
 - 🌿 Node.js
 
