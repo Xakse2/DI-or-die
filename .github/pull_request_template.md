@@ -2,6 +2,10 @@
 
 <!-- ✍️ Provide a concise and informative title for your pull request -->
 
+#### 🔧 Technical details
+
+<!-- ✍️ Used libraries/technologies, changes in API, configs, dependencies -->
+
 #### 🤔 This is a ...
 
 - [ ] 🌟 New task
@@ -16,3 +20,5 @@
 
 - **Brief Overview:**
   <!-- 📖 Summarize the changes made and the problem or enhancement addressed -->
+- **Notes:**
+  <!-- 📖 Add links to related issues or comments -->
