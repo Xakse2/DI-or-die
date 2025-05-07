@@ -9,7 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
-  { ignores: ['node_modules', 'dist'] },
+  { ignores: ['node_modules', 'dist', 'vite.config.ts'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -48,6 +48,7 @@ export default tseslint.config(
             env: true,
             i: true,
             j: true,
+            props: true,
           },
         },
       ],
