@@ -1,17 +1,18 @@
-import NavigationMenuComponents from '../ui/navigation-menu';
 import { Link } from 'react-router-dom';
-
-const {
+import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
-  // NavigationMenuContent,
   NavigationMenuTrigger,
   NavigationMenuLink,
-  // NavigationMenuIndicator,
-  // NavigationMenuViewport,
-  navigationMenuTriggerStyle,
-} = NavigationMenuComponents;
+} from '../ui/menu/navigation-menu';
+import { navigationMenuTriggerStyle } from '../ui/menu/navigation-menu-style';
+
+const menuItems: { title: string; link: string }[] = [
+  { title: 'For Men', link: '/men' },
+  { title: 'For Women', link: '/women' },
+  { title: 'About Us', link: '/about' },
+];
 
 export function NavigationPagesMenu() {
   return (
@@ -20,36 +21,18 @@ export function NavigationPagesMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Catalog</NavigationMenuTrigger>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/#">
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <span>For Men</span>
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/#">
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <span> For Women</span>
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/#">
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <span>About Us</span>
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {menuItems.map((item, index) => (
+          <NavigationMenuItem key={index}>
+            <Link to={item.link}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <span>{item.title}</span>
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        ))}
       </NavigationMenuList>
     </NavigationMenu>
   );
