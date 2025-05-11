@@ -10,20 +10,20 @@ export function LoginMenu() {
     <div className="flex items-center gap-2">
       {!isAuthenticated &&
         location.pathname !== '/login' &&
-        location.pathname !== '/signin' && (
+        location.pathname !== '/signup' && (
           <>
             <Button variant={'green'} size={'sm'}>
-              Log in
+              Log In
             </Button>
-            <Button size={'sm'}>Sign in</Button>
+            <Button size={'sm'}>Sign Up</Button>
           </>
         )}
       {!isAuthenticated && location.pathname === '/login' && (
-        <Button size={'sm'}>Sign in</Button>
+        <Button size={'sm'}>Sign Up</Button>
       )}
-      {!isAuthenticated && location.pathname === '/signin' && (
+      {!isAuthenticated && location.pathname === '/signup' && (
         <Button variant={'green'} size={'sm'}>
-          Log in
+          Log In
         </Button>
       )}
       {isAuthenticated && (
