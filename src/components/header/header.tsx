@@ -1,5 +1,5 @@
-import { NavigationPagesMenu } from './left-menu';
-import { LoginMenu } from './right-menu';
+import { NavigationPagesMenu } from './NavigationPagesMenu';
+import { LoginMenu } from './LoginMenu';
 
 export function Header() {
   return (
