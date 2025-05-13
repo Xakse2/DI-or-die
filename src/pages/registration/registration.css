@@ -1,0 +1,19 @@
+form {
+  border: 2px solid var(--border);
+  border-radius: 2.5rem;
+  padding: 1.5rem;
+}
+
+label {
+  color: var(--foreground);
+}
+
+[data-slot='input'] {
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+}
+
+[data-slot='input']:focus-visible {
+  outline: none;
+  position: relative;
+}
