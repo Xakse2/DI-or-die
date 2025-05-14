@@ -1,5 +1,5 @@
-import { Header } from './components/header/Head';
-import { Home } from './pages/home/home';
+import { Header } from './components/header/Header';
+import { HomePage } from './pages/home/HomePage';
 import { BrowserRouter } from 'react-router-dom';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <div className="mx-auto px-[60px] flex flex-col items-center max-w-full min-h-svh">
         <Header />
-        <Home />
+        <HomePage />
       </div>
     </BrowserRouter>
   );

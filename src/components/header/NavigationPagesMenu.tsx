@@ -4,7 +4,6 @@ import {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
-  NavigationMenuLink,
 } from '../ui/menu/navigation-menu';
 import { navigationMenuTriggerStyle } from '../ui/menu/navigation-menu-style';
 
@@ -23,13 +22,8 @@ export function NavigationPagesMenu() {
         </NavigationMenuItem>
         {menuItems.map((item, index) => (
           <NavigationMenuItem key={index}>
-            <Link to={item.link}>
-              <NavigationMenuLink
-                asChild
-                className={navigationMenuTriggerStyle()}
-              >
-                <span>{item.title}</span>
-              </NavigationMenuLink>
+            <Link to={item.link} className={navigationMenuTriggerStyle()}>
+              {item.title}
             </Link>
           </NavigationMenuItem>
         ))}
