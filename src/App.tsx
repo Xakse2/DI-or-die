@@ -5,7 +5,7 @@ import { loginUser } from './api/auth';
 import { getClientCredentialsToken } from './api/get-token';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from './app/store';
-import { setToken } from './app/slices/tokenSlice';
+import { setToken } from './app/slices/token-slice';
 
 function App() {
   const dispatch = useDispatch();

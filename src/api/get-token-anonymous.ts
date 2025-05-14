@@ -1,9 +1,14 @@
 import axios from 'axios';
-import { clientId, clientSecret, projectKey } from '@/const/api-date';
+import {
+  baseAuthURL,
+  clientId,
+  clientSecret,
+  projectKey,
+} from '@/const/api-data';
 
-const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/${projectKey}/anonymous/token`;
+const authUrl = `${baseAuthURL}/oauth/${projectKey}/anonymous/token`;
 
-export async function getTokenAnonyms(): Promise<string> {
+export async function getTokenAnonymous(): Promise<string> {
   const response = await axios.post(authUrl, 'grant_type=anonymous', {
     headers: {
       Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,

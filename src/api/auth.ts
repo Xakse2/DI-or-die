@@ -1,7 +1,12 @@
-import { clientId, clientSecret, projectKey } from '@/const/api-date';
+import {
+  baseAuthURL,
+  clientId,
+  clientSecret,
+  projectKey,
+} from '@/const/api-data';
 import axios from 'axios';
 
-const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/${projectKey}/customers/token`;
+const authUrl = `${baseAuthURL}/oauth/${projectKey}/customers/token`;
 
 export async function loginUser(
   username: string,

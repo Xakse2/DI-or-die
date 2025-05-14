@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { clientId, clientSecret } from '@/const/api-date';
+import { baseAuthURL, clientId, clientSecret } from '@/const/api-data';
 
-const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/token`;
+const authUrl = `${baseAuthURL}/oauth/token`;
 
 export async function getClientCredentialsToken(): Promise<string> {
   const response = await axios.post(authUrl, 'grant_type=client_credentials', {
