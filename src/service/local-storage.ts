@@ -3,11 +3,11 @@ import { prefix } from '../const/prefix';
 export class LocalStorage {
   private readonly prefix: string = prefix;
 
-  public setDate(key: string, value: string): void {
+  public setData(key: string, value: string): void {
     localStorage.setItem(this.keyGenerate(key), value);
   }
 
-  public getDate(key: string): string | null {
+  public getData(key: string): string | null {
     return localStorage.getItem(this.keyGenerate(key));
   }
 
@@ -19,7 +19,7 @@ export class LocalStorage {
     localStorage.clear();
   }
 
-  public removeDate(key: string): void {
+  public removeData(key: string): void {
     localStorage.removeItem(this.keyGenerate(key));
   }
 }
