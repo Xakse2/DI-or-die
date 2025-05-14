@@ -1,7 +1,10 @@
 .promo-background {
   position: relative;
+
   display: flex;
   justify-content: center;
+
+  max-width: 909px;
   height: fit-content;
 }
 

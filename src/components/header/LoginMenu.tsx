@@ -1,36 +1,38 @@
+/* eslint-disable unicorn/no-null */
+
 import { Button } from '../ui/button/button';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import type { RedirectButtons } from '@/interfaces/redirectButtons';
 
 const isAuthenticated = false;
 
 export function LoginMenu() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const redirectButton: RedirectButtons[] = [
+    { path: '/login', label: 'Log In', variant: 'green' },
+    { path: '/signup', label: 'Sign Up' },
+  ];
 
   return (
     <div className="flex items-center gap-2">
       {!isAuthenticated &&
-        location.pathname !== '/login' &&
-        location.pathname !== '/signup' && (
-          <>
-            <Button variant={'green'} size={'sm'}>
-              Log In
+        redirectButton.map(({ path, label, variant }) => {
+          const isCurrent = location.pathname === path;
+          const isHome = location.pathname === '/';
+          return !isCurrent || isHome ? (
+            <Button
+              key={path}
+              variant={variant ?? 'default'}
+              size="sm"
+              onClick={() => navigate(path)}
+            >
+              {label}
             </Button>
-            <Button size={'sm'}>Sign Up</Button>
-          </>
-        )}
-      {!isAuthenticated && location.pathname === '/login' && (
-        <Button size={'sm'}>Sign Up</Button>
-      )}
-      {!isAuthenticated && location.pathname === '/signup' && (
-        <Button variant={'green'} size={'sm'}>
-          Log In
-        </Button>
-      )}
-      {isAuthenticated && (
-        <Button variant={'green'} size={'sm'}>
-          Profile
-        </Button>
-      )}
+          ) : null;
+        })}
+
       <div>
         <img src="/basket.svg" alt="basket" />
       </div>
