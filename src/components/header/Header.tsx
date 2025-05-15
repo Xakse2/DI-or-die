@@ -1,3 +1,5 @@
+import { NavigationPagesMenu } from './NavigationPagesMenu';
+import { LoginMenu } from './LoginMenu';
 import { Link } from 'react-router-dom';
 
 export function Header() {
@@ -6,6 +8,10 @@ export function Header() {
       <Link to="/" className="justify-items-center  h-auto">
         <img className="h-[5rem]" src="/logosneak.svg" alt="logo" />
       </Link>
+      <div className="flex justify-between">
+        <NavigationPagesMenu />
+        <LoginMenu />
+      </div>
     </header>
   );
 }

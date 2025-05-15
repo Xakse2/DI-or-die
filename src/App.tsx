@@ -1,4 +1,3 @@
-import { Button } from './components/ui/button/button';
 import { Header } from './components/header/Header';
 import { Routes, Route } from 'react-router-dom';
 import { routes } from './const/routes';
@@ -12,9 +11,6 @@ function App() {
           <Route key={path} path={path} element={<Component />} />
         ))}
       </Routes>
-      <div>
-        <Button>Click me</Button>
-      </div>
     </div>
   );
 }
