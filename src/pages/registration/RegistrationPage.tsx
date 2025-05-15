@@ -6,6 +6,32 @@ import { Label } from '@/components/ui/label/label';
 import { useNavigate } from 'react-router-dom';
 import './registration.css';
 
+const COUNTRIES = new Set([
+  'USA',
+  'Canada',
+  'Germany',
+  'Russia',
+  'Belarus',
+  'Ukraine',
+  'Kazakhstan',
+  'Uzbekistan',
+  'France',
+  'Italy',
+]);
+
+const POSTAL_CODE_REGEX: Record<string, RegExp> = {
+  USA: /^\d{5}(-\d{4})?$/,
+  Canada: /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
+  Germany: /^\d{5}$/,
+  Russia: /^\d{6}$/,
+  Belarus: /^\d{6}$/,
+  Ukraine: /^\d{5}$/,
+  Kazakhstan: /^\d{6}$/,
+  Uzbekistan: /^\d{6}$/,
+  France: /^\d{5}$/,
+  Italy: /^\d{5}$/,
+};
+
 type FormFields = {
   email: string;
   password: string;
@@ -18,20 +44,63 @@ type FormFields = {
   postalCode: string;
 };
 
-const validateField = (name: keyof FormFields, value: string) => {
+const validateField = (
+  name: keyof FormFields,
+  value: string,
+  country?: string,
+) => {
   switch (name) {
     case 'email': {
-      return value.includes('@') ? '' : 'Invalid email format';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(value) ? '' : 'Invalid email format';
     }
     case 'password': {
-      return value.length >= 8 ? '' : 'Password must be at least 8 characters';
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      return regex.test(value)
+        ? ''
+        : 'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number';
     }
     case 'firstName':
     case 'lastName': {
-      return value.trim() ? '' : 'This field is required';
+      const nameRegex = /^[a-zA-Z\s]+$/;
+      return nameRegex.test(value) && value.trim()
+        ? ''
+        : 'Must contain only letters and spaces';
     }
     case 'dateOfBirth': {
-      return value ? '' : 'Please select your date of birth';
+      if (!value) return 'Please select your date of birth';
+
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      if (
+        monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+
+      return age >= 13 ? '' : 'You must be at least 13 years old';
+    }
+    case 'country': {
+      return COUNTRIES.has(value) ? '' : 'Invalid country';
+    }
+    case 'street': {
+      return value.trim() ? '' : 'Street is required';
+    }
+    case 'city': {
+      const cityRegex = /^[a-zA-Z\s]+$/;
+      return cityRegex.test(value) && value.trim()
+        ? ''
+        : 'City must contain only letters and spaces';
+    }
+    case 'postalCode': {
+      if (!country) return 'Please select country first';
+      const regex = POSTAL_CODE_REGEX[country] || /.*/;
+      return regex.test(value)
+        ? ''
+        : `Invalid postal code format for ${country}`;
     }
     default: {
       return '';
@@ -66,7 +135,7 @@ export function RegistrationPage() {
     let isValid = true;
 
     for (const key of Object.keys(formData) as Array<keyof FormFields>) {
-      const error = validateField(key, formData[key]);
+      const error = validateField(key, formData[key], formData.country);
       if (error) {
         newErrors[key] = error;
         isValid = false;
@@ -126,6 +195,11 @@ export function RegistrationPage() {
         </p>
         {renderInput('email', 'Email', 'email')}
         {renderInput('password', 'Password', 'password')}
+        {!errors.password && (
+          <p className="text-xs text-gray-500">
+            Min 8 chars, 1 uppercase, 1 lowercase, 1 number
+          </p>
+        )}
         {renderInput('firstName', 'First Name')}
         {renderInput('lastName', 'Last Name')}
         {renderInput('dateOfBirth', 'Date of Birth', 'date')}
