@@ -1,4 +1,5 @@
 import { Header } from './components/header/Header';
+import { Footer } from './components/footer/Footer';
 import { Routes, Route } from 'react-router-dom';
 import { routes } from './const/routes';
 
@@ -11,6 +12,7 @@ function App() {
           <Route key={path} path={path} element={<Component />} />
         ))}
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -16,6 +16,7 @@
     "tw": "tailwindcss-cli"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.14",
     "@radix-ui/react-navigation-menu": "^1.2.12",
     "@radix-ui/react-slot": "^1.2.2",
     "@reduxjs/toolkit": "^2.7.0",
