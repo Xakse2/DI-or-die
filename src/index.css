@@ -74,6 +74,7 @@
   --sidebar-accent-foreground: oklch(20.5% 0 0deg);
   --sidebar-border: oklch(92.2% 0 0deg);
   --sidebar-ring: oklch(70.8% 0 0deg);
+  --custom-green: oklch(52% 0.2 150deg);
 }
 
 .dark {
