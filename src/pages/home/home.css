@@ -1,0 +1,16 @@
+.promo-background {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+
+  max-width: 909px;
+  height: fit-content;
+}
+
+.promo-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgb(0 0 0 / 50%);
+}
