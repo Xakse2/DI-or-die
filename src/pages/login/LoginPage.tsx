@@ -1,3 +1,3 @@
 export function LoginPage() {
-  return <h1>LoginPage</h1>;
+  return <h1 className="text-4xl">LoginPage</h1>;
 }

@@ -11,10 +11,10 @@ export function Footer() {
         <img className="h-[3rem]" src="/logosneak.svg" alt="logo" />
       </Link>
       <div className="flex justify-center gap-10">
-        <Link to="/" className="items-center  h-auto">
+        <Link to="/footer_cou" className="items-center  h-auto">
           Conditions of Use
         </Link>
-        <Link to="/" className="items-center  h-auto">
+        <Link to="/footer_privacy" className="items-center  h-auto">
           Privacy Notice
         </Link>
       </div>
