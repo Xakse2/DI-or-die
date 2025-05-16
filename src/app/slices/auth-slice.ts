@@ -1,31 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '@/app/store';
-
-interface AuthState {
-  isAuthenticated: boolean;
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-};
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: { isAuthenticated: !!localStorage.getItem('accessToken') },
   reducers: {
-    setAuthenticated: (state, action: PayloadAction<boolean>) => {
-      state.isAuthenticated = action.payload;
+    login: (state, action: PayloadAction<string>) => {
+      state.isAuthenticated = true;
+      localStorage.setItem('accessToken', action.payload);
     },
     logout: state => {
       state.isAuthenticated = false;
+      localStorage.removeItem('accessToken');
     },
   },
 });
 
-export const { setAuthenticated, logout } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;
-
-// Селектор для удобного доступа к состоянию
-export const selectIsAuthenticated = (state: RootState) =>
-  state.auth.isAuthenticated;

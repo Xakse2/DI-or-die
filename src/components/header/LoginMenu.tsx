@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/no-null */
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import type { RootState } from '@/app/store';
 import { Button } from '../ui/button/button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { RedirectButtons } from '@/interfaces/redirectButtons';
-import { logout } from '@/app/slices/auth-slice';
+import { login, logout } from '@/app/slices/auth-slice';
 import { LogOut, User } from 'lucide-react';
 import {
   DropdownMenu,
@@ -30,12 +31,19 @@ export function LoginMenu() {
     { path: '/signup', label: 'Sign Up' },
   ];
 
+  useEffect(() => {
+    const savedToken = localStorage.getItem('accessToken');
+    if (savedToken) {
+      dispatch(login(savedToken));
+    }
+  }, [dispatch]);
+
   return (
     <div className="flex items-center gap-2">
       {isAuthenticated ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Open</Button>
+            <Button variant="outline">Name</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -47,7 +55,13 @@ export function LoginMenu() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              <Button size="sm" onClick={() => dispatch(logout())}>
+              <Button
+                size="sm"
+                onClick={() => {
+                  localStorage.removeItem('accessToken');
+                  dispatch(logout());
+                }}
+              >
                 Log Out
               </Button>
             </DropdownMenuItem>
