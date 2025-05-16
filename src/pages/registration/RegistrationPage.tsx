@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 import './registration.css';
-// import { loginUser } from '@/api/auth';
-// import { registerUser } from '@/api/register';
-// import { useDispatch } from 'react-redux';
-// import { setToken } from '@/app/slices/tokenSlice';
-// import { storage } from '@/service/local-storage';
+import { registerUser } from '@/service/registrationService';
 
 // const COUNTRIES = new Set([
 //     'USA',
@@ -36,7 +33,7 @@ import './registration.css';
 //     Italy: /^\d{5}$/,
 // };
 
-interface FormFields {
+export interface FormFields {
   email: string;
   password: string;
   firstName: string;
@@ -160,21 +157,14 @@ export function RegistrationPage() {
     return isValid;
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!validateForm()) return;
 
     try {
-      //отправить данные на сервер
-      //редирект
-
-      // await registerUser(formData); //отправка данных регитсрации
-
-      // const token = await loginUser(formData.email, formData.password);
-
-      // localStorage.setItem('authToken', token);
-
-      await navigate('/home', { replace: true });
+      await registerUser(formData, navigate, dispatch);
     } catch (error) {
       console.error('Registration failed:', error);
       setErrors({
