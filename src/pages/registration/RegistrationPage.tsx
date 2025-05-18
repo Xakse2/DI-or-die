@@ -4,3 +4,7 @@ export interface FormFields {
   firstName?: string;
   lastName?: string;
 }
+
+export function RegistrationPage() {
+  return <h1 className="text-4xl">AboutPage</h1>;
+}
