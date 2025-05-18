@@ -76,8 +76,6 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
 
     try {
       await onSubmit(formData);
-
-      // void navigate('/');
     } catch (error) {
       console.error('Authentication failed:', error);
       setErrors(prev => ({
@@ -100,7 +98,9 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
-      <h2>{isRegistration ? 'Register' : 'Login'}</h2>
+      <h2 className="text-2xl font-bold text-center">
+        {isRegistration ? 'Register' : 'Login'}
+      </h2>
 
       {fields.map(field => (
         <FormField
@@ -114,7 +114,7 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
         />
       ))}
 
-      <Button type="submit" variant="secondary" className="w-full">
+      <Button type="submit" variant="green" className="w-full">
         {isRegistration ? 'Register' : 'Login'}
       </Button>
     </form>
