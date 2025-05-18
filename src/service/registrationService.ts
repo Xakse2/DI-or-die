@@ -1,6 +1,6 @@
 import type { NavigateFunction } from 'react-router-dom';
 import type { AppDispatch } from '@/app/store';
-import { storage } from '@/service/local-storage';
+// import { storage } from '@/service/local-storage';
 import { setToken } from '@/app/slices/token-slice';
 import { registerUser as apiRegisterUser } from '@/api/register';
 import { loginUser as apiLoginUser } from '@/api/auth';
@@ -29,9 +29,9 @@ export async function registerUser(
     const authToken = await apiLoginUser(formData.email, formData.password);
 
     dispatch(setToken(authToken));
-    storage.setData('authToken', authToken);
-    localStorage.setItem('authToken', authToken);
-    dispatch(login(authToken));
+    // storage.setData('authToken', authToken);
+    // localStorage.setItem('authToken', authToken);
+    dispatch(login({ token: authToken, username: formData.email }));
 
     await navigate('/', { replace: true });
   } catch (error) {

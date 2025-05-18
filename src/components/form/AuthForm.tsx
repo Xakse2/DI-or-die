@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button/button';
 import { FormField } from './FormField';
 import type { RegisterPayload } from '@/interfaces/register-payload';
@@ -30,7 +29,6 @@ const validateField = (name: keyof RegisterPayload, value: string) =>
   validators[name](value);
 
 export function AuthForm({ type, onSubmit }: AuthFormProps) {
-  // console.log('AuthForm mounted, onSubmit:', onSubmit);
   const isRegistration = type === 'registration';
   const [formData, setFormData] = useState<RegisterPayload>({
     email: '',
@@ -40,7 +38,6 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
   });
 
   const [errors, setErrors] = useState<Partial<RegisterPayload>>({});
-  // const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -72,16 +69,14 @@ export function AuthForm({ type, onSubmit }: AuthFormProps) {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Form submitted!');
-    console.log('Validating form...', formData);
+
     if (!validateForm()) {
-      console.log('Validation failed', errors);
       return;
     }
-    console.log('Calling onSubmit:', formData);
+
     try {
       await onSubmit(formData);
-      console.log('onSubmit executed');
+
       // void navigate('/');
     } catch (error) {
       console.error('Authentication failed:', error);

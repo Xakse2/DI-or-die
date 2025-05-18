@@ -3,7 +3,6 @@ import { setToken, clearToken } from '@/app/slices/token-slice';
 import { login, logout } from '@/app/slices/auth-slice';
 import { store } from '@/app/store';
 import type { NavigateFunction } from 'react-router-dom';
-// import { getClientCredentialsToken } from '@/api/get-token';
 
 export const authService = {
   login: async (
@@ -11,13 +10,11 @@ export const authService = {
     password: string,
     navigate: NavigateFunction,
   ) => {
-    console.log('Sending request to API:', { email, password });
     try {
-      // const clientToken = await getClientCredentialsToken();
-      const accessToken = await loginUser(email, password);
+      const authToken = await loginUser(email, password);
 
-      store.dispatch(setToken(accessToken));
-      store.dispatch(login(accessToken));
+      store.dispatch(setToken(authToken));
+      store.dispatch(login({ token: authToken, username: email }));
       void navigate('/');
     } catch (error) {
       console.error('Login failed:', error);
@@ -28,13 +25,5 @@ export const authService = {
   logout: () => {
     store.dispatch(clearToken());
     store.dispatch(logout());
-  },
-
-  getToken: (): string | null => {
-    return store.getState().tokenSlice.accessToken;
-  },
-
-  isAuthenticated: (): boolean => {
-    return store.getState().auth.isAuthenticated;
   },
 };

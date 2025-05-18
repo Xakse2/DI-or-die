@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import type { RedirectButtons } from '@/interfaces/redirectButtons';
 import { login, logout } from '@/app/slices/auth-slice';
 import { LogOut, User } from 'lucide-react';
+import { storage } from '@/service/local-storage';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,18 +33,22 @@ export function LoginMenu() {
   ];
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('accessToken');
-    if (savedToken) {
-      dispatch(login(savedToken));
+    const savedToken = storage.getData('authToken');
+    const savedEmail = storage.getData('userEmail');
+
+    if (savedToken && savedEmail) {
+      dispatch(login({ token: savedToken, username: savedEmail }));
     }
   }, [dispatch]);
+
+  const username = useSelector((state: RootState) => state.auth.username);
 
   return (
     <div className="flex items-center gap-2">
       {isAuthenticated ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Name</Button>
+            <Button variant="outline">{username}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -29,6 +29,5 @@ export async function loginUser(
     },
   );
 
-  console.log('API response:', response.data);
   return response.data.access_token;
 }

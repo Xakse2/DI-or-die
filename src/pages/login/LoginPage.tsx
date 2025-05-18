@@ -7,7 +7,6 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = async (data: RegisterPayload) => {
-    console.log('Login attempt:', data);
     try {
       await authService.login(data.email, data.password, navigate);
     } catch (error) {
