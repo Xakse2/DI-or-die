@@ -16,6 +16,6 @@ describe('App Router', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByText('LoginPage')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
   });
 });

@@ -134,8 +134,8 @@ export function RegistrationPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-4"
       >
-        <h2>Registration</h2>
-        <p>
+        <h2 className="text-2xl font-bold text-center">Registration</h2>
+        <p className="text-center">
           Have an Account?{' '}
           <Link to="/login" className="text-green-500 underline">
             Log in
@@ -163,7 +163,7 @@ export function RegistrationPage() {
           </p>
         )}
 
-        <Button type="submit" variant="secondary" size="sm" className="w-full">
+        <Button type="submit" variant="green" size="sm" className="w-full">
           Register
         </Button>
       </form>
