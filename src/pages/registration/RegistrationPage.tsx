@@ -73,10 +73,7 @@ export function RegistrationPage() {
     let isValid = true;
 
     for (const key of Object.keys(formData) as Array<keyof FormFields>) {
-      const error = validateField(
-        key,
-        formData[key],
-      );
+      const error = validateField(key, formData[key]);
       if (error) {
         newErrors[key] = error;
         isValid = false;

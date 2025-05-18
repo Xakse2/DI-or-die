@@ -1,23 +1,73 @@
 /* eslint-disable unicorn/no-null */
 
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import type { RootState } from '@/app/store';
 import { Button } from '../ui/button/button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { RedirectButtons } from '@/interfaces/redirectButtons';
-
-const isAuthenticated = false;
+import { login, logout } from '@/app/slices/auth-slice';
+import { LogOut, User } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/menu/dropdown-menu';
 
 export function LoginMenu() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
 
   const redirectButton: RedirectButtons[] = [
     { path: '/login', label: 'Log In', variant: 'green' },
     { path: '/signup', label: 'Sign Up' },
   ];
 
+  useEffect(() => {
+    const savedToken = localStorage.getItem('accessToken');
+    if (savedToken) {
+      dispatch(login(savedToken));
+    }
+  }, [dispatch]);
+
   return (
     <div className="flex items-center gap-2">
-      {!isAuthenticated &&
+      {isAuthenticated ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">Name</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 bg-white">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator className="bg-green-600 h-[2px]" />
+            <DropdownMenuItem>
+              <User />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <LogOut />
+              <Button
+                size="sm"
+                onClick={() => {
+                  localStorage.removeItem('accessToken');
+                  dispatch(logout());
+                }}
+              >
+                Log Out
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
         redirectButton.map(({ path, label, variant }) => {
           const isCurrent = location.pathname === path;
           const isHome = location.pathname === '/';
@@ -31,7 +81,8 @@ export function LoginMenu() {
               {label}
             </Button>
           ) : null;
-        })}
+        })
+      )}
 
       <div>
         <img src="/basket.svg" alt="basket" />
