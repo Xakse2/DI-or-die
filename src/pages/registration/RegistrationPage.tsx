@@ -7,42 +7,11 @@ import { Label } from '@/components/ui/label/label';
 import './registration.css';
 import { registerUser } from '@/service/registrationService';
 
-// const COUNTRIES = new Set([
-//     'USA',
-//     'Canada',
-//     'Germany',
-//     'Russia',
-//     'Belarus',
-//     'Ukraine',
-//     'Kazakhstan',
-//     'Uzbekistan',
-//     'France',
-//     'Italy',
-// ]);
-
-// const POSTAL_CODE_REGEX: Record<string, RegExp> = {
-//     USA: /^\d{5}(-\d{4})?$/,
-//     Canada: /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
-//     Germany: /^\d{5}$/,
-//     Russia: /^\d{6}$/,
-//     Belarus: /^\d{6}$/,
-//     Ukraine: /^\d{5}$/,
-//     Kazakhstan: /^\d{6}$/,
-//     Uzbekistan: /^\d{6}$/,
-//     France: /^\d{5}$/,
-//     Italy: /^\d{5}$/,
-// };
-
 export interface FormFields {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
-  // dateOfBirth: string;
-  // country: string;
-  // city: string;
-  // street: string;
-  // postalCode: string;
 }
 
 const validators: Record<
@@ -72,39 +41,6 @@ const validators: Record<
       ? ''
       : 'Must contain only letters and spaces';
   },
-  // dateOfBirth: value => {
-  //     if (!value) return 'Please select your date of birth';
-
-  //     const today = new Date();
-  //     const birthDate = new Date(value);
-  //     let age = today.getFullYear() - birthDate.getFullYear();
-  //     const monthDifference = today.getMonth() - birthDate.getMonth();
-  //     if (
-  //         monthDifference < 0 ||
-  //         (monthDifference === 0 && today.getDate() < birthDate.getDate())
-  //     ) {
-  //         age--;
-  //     }
-
-  //     return age >= 13 ? '' : 'You must be at least 13 years old';
-  // },
-  // country: value => {
-  //     return COUNTRIES.has(value) ? '' : 'Invalid country';
-  // },
-  // city: value => {
-  //     const cityRegex = /^[a-zA-Z\s]+$/;
-  //     return cityRegex.test(value) && value.trim()
-  //         ? ''
-  //         : 'City must contain only letters and spaces';
-  // },
-  // street: value => {
-  //     return value.trim() ? '' : 'Street is required';
-  // },
-  // postalCode: (value, country) => {
-  //     if (!country) return 'Please select country first';
-  //     const regex = POSTAL_CODE_REGEX[country] || /.*/;
-  //     return regex.test(value) ? '' : `Invalid postal code format for ${country}`;
-  // },
 };
 
 const validateField = (
@@ -121,11 +57,6 @@ export function RegistrationPage() {
     password: '',
     firstName: '',
     lastName: '',
-    // dateOfBirth: '',
-    // country: '',
-    // city: '',
-    // street: '',
-    // postalCode: '',
   });
 
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
@@ -145,7 +76,6 @@ export function RegistrationPage() {
       const error = validateField(
         key,
         formData[key],
-        // formData.country
       );
       if (error) {
         newErrors[key] = error;
@@ -198,11 +128,6 @@ export function RegistrationPage() {
     { name: 'password', label: 'Password', type: 'password' },
     { name: 'firstName', label: 'First Name', type: 'text' },
     { name: 'lastName', label: 'Last Name', type: 'text' },
-    // { name: 'dateOfBirth', label: 'Date of Birth', type: 'date' },
-    // { name: 'country', label: 'Country', type: 'text' },
-    // { name: 'city', label: 'City', type: 'text' },
-    // { name: 'street', label: 'Street', type: 'text' },
-    // { name: 'postalCode', label: 'Postal Code', type: 'text' },
   ];
 
   return (
