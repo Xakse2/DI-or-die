@@ -15,14 +15,12 @@ const authSlice = createSlice({
     ) => {
       state.isAuthenticated = true;
       state.username = action.payload.username;
-      // localStorage.setItem('authToken', action.payload.token);
       storage.setData('authToken', action.payload.token);
       storage.setData('userEmail', action.payload.username);
     },
     logout: state => {
       state.isAuthenticated = false;
       state.username = '';
-      // localStorage.removeItem('authToken');
       storage.removeData('authToken');
       storage.removeData('userEmail');
     },
