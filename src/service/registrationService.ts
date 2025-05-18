@@ -31,7 +31,7 @@ export async function registerUser(
     storage.setData('authToken', authToken);
     localStorage.setItem('authToken', authToken);
 
-    await navigate('/home', { replace: true });
+    await navigate('/', { replace: true });
   } catch (error) {
     console.error('Registration failed:', error);
     throw error;
