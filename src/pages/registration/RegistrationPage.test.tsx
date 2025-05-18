@@ -1,13 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { renderWithProviders } from '../../test-utilities';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { RegistrationPage } from './RegistrationPage';
 import { MemoryRouter } from 'react-router-dom';
+import { screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest';
 
 describe('RegistrationPage', () => {
   // Проверка отображения всех полей формы
   it('renders all form fields', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
@@ -18,16 +20,11 @@ describe('RegistrationPage', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByLabelText('First Name')).toBeInTheDocument();
     expect(screen.getByLabelText('Last Name')).toBeInTheDocument();
-    // expect(screen.getByLabelText('Date of Birth')).toBeInTheDocument();
-    // expect(screen.getByLabelText('Country')).toBeInTheDocument();
-    // expect(screen.getByLabelText('City')).toBeInTheDocument();
-    // expect(screen.getByLabelText('Street')).toBeInTheDocument();
-    // expect(screen.getByLabelText('Postal Code')).toBeInTheDocument();
   });
 
   // Проверка валидации почты
   it('shows email error on invalid input', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
@@ -42,7 +39,7 @@ describe('RegistrationPage', () => {
 
   // Проверка валидации пароля
   it('shows password error on invalid input', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
@@ -61,7 +58,7 @@ describe('RegistrationPage', () => {
 
   // Проверка валидации имени и фамилии
   it('shows name errors on invalid input', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
@@ -80,61 +77,9 @@ describe('RegistrationPage', () => {
     expect(errorMessages.length).toBe(2);
   });
 
-  // Проверка валидации даты рождения
-  // it('shows date of birth error if user is under 13', async () => {
-  //   render(
-  //     <MemoryRouter>
-  //       <RegistrationPage />
-  //     </MemoryRouter>,
-  //   );
-
-  //   const dateOfBirthInput = screen.getByLabelText('Date of Birth');
-  //   fireEvent.change(dateOfBirthInput, { target: { value: '2020-01-01' } });
-  //   fireEvent.submit(screen.getByRole('form'));
-
-  //   expect(
-  //     await screen.findByText('You must be at least 13 years old'),
-  //   ).toBeInTheDocument();
-  // });
-
-  // Проверка валидации страны
-  // it('shows country error on invalid input', async () => {
-  //   render(
-  //     <MemoryRouter>
-  //       <RegistrationPage />
-  //     </MemoryRouter>,
-  //   );
-
-  //   const countryInput = screen.getByLabelText('Country');
-  //   fireEvent.change(countryInput, { target: { value: 'Abc' } });
-  //   fireEvent.submit(screen.getByRole('form'));
-
-  //   expect(await screen.findByText('Invalid country')).toBeInTheDocument();
-  // });
-
-  // Проверка валидации почтового индекса
-  // it('shows postal code error for invalid format', async () => {
-  //   render(
-  //     <MemoryRouter>
-  //       <RegistrationPage />
-  //     </MemoryRouter>,
-  //   );
-
-  //   const countryInput = screen.getByLabelText('Country');
-  //   const postalCodeInput = screen.getByLabelText('Postal Code');
-
-  //   fireEvent.change(countryInput, { target: { value: 'USA' } });
-  //   fireEvent.change(postalCodeInput, { target: { value: '123' } });
-  //   fireEvent.submit(screen.getByRole('form'));
-
-  //   expect(
-  //     await screen.findByText('Invalid postal code format for USA'),
-  //   ).toBeInTheDocument();
-  // });
-
   // Проверка успешной отправки формы
   it('submits the form successfully with valid data', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
@@ -144,21 +89,11 @@ describe('RegistrationPage', () => {
     const passwordInput = screen.getByLabelText('Password');
     const firstNameInput = screen.getByLabelText('First Name');
     const lastNameInput = screen.getByLabelText('Last Name');
-    // const dateOfBirthInput = screen.getByLabelText('Date of Birth');
-    // const countryInput = screen.getByLabelText('Country');
-    // const cityInput = screen.getByLabelText('City');
-    // const streetInput = screen.getByLabelText('Street');
-    // const postalCodeInput = screen.getByLabelText('Postal Code');
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'Password1!' } });
     fireEvent.change(firstNameInput, { target: { value: 'John' } });
     fireEvent.change(lastNameInput, { target: { value: 'Doe' } });
-    // fireEvent.change(dateOfBirthInput, { target: { value: '2000-01-01' } });
-    // fireEvent.change(countryInput, { target: { value: 'USA' } });
-    // fireEvent.change(cityInput, { target: { value: 'New York' } });
-    // fireEvent.change(streetInput, { target: { value: 'Main St' } });
-    // fireEvent.change(postalCodeInput, { target: { value: '10001' } });
 
     fireEvent.submit(screen.getByRole('form'));
 
@@ -169,18 +104,11 @@ describe('RegistrationPage', () => {
     expect(
       screen.queryByText('Must contain only letters and spaces'),
     ).not.toBeInTheDocument();
-    // expect(
-    //   screen.queryByText('You must be at least 13 years old'),
-    // ).not.toBeInTheDocument();
-    // expect(screen.queryByText('Invalid country')).not.toBeInTheDocument();
-    // expect(
-    //   screen.queryByText('Invalid postal code format for USA'),
-    // ).not.toBeInTheDocument();
   });
 
-  // Проверка отсутствия дублирования ошибок
+  // отсутствие дублирования ошибок
   it('does not show duplicate error messages', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter>
         <RegistrationPage />
       </MemoryRouter>,
