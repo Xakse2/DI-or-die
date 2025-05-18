@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utilities';
-import { labelVariants } from './labelVariants ';
+import { labelVariants } from './labelVariants';
 
 function Label({
   className,
