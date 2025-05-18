@@ -9,8 +9,8 @@ import { navigationMenuTriggerStyle } from '../ui/menu/navigation-menu-style';
 import type { MenuItems } from '@/interfaces/menuItems';
 
 const menuItems: MenuItems[] = [
-  { title: 'For Men', link: '/men' },
-  { title: 'For Women', link: '/women' },
+  { title: 'For Men', link: '/mens' },
+  { title: 'For Women', link: '/womens' },
   { title: 'About Us', link: '/about' },
 ];
 

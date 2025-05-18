@@ -49,6 +49,8 @@ export default tseslint.config(
             i: true,
             j: true,
             props: true,
+            Props: true,
+            prev: true,
           },
         },
       ],
