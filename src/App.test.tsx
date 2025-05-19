@@ -1,20 +1,25 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
-import App from './App';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-describe('App Component', () => {
-  it('renders the heading', () => {
-    render(<App />);
-    expect(screen.getByText('Hello, My Team')).toBeInTheDocument();
-  });
+import { LoginPage } from '@/pages/login/LoginPage';
+import { store } from '@/app/store';
 
-  it('increments count on button click', () => {
-    render(<App />);
-    const button = screen.getByRole('button', { name: /count is/i });
+describe('App Router', () => {
+  it('renders the login page when path is "/login"', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/login']}>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
 
-    expect(button).toHaveTextContent('count is 0');
-    fireEvent.click(button);
-    expect(button).toHaveTextContent('count is 1');
+    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
   });
 });
