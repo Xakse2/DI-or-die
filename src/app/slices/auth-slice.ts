@@ -11,11 +11,16 @@ const authSlice = createSlice({
   reducers: {
     login: (
       state,
-      action: PayloadAction<{ token: string; username: string }>,
+      action: PayloadAction<{
+        authToken: string;
+        username: string;
+        refreshToken: string;
+      }>,
     ) => {
       state.isAuthenticated = true;
       state.username = action.payload.username;
-      storage.setData('authToken', action.payload.token);
+      storage.setData('authToken', action.payload.authToken);
+      storage.setData('refreshToken', action.payload.refreshToken);
       storage.setData('userEmail', action.payload.username);
     },
     logout: state => {
@@ -23,6 +28,7 @@ const authSlice = createSlice({
       state.username = '';
       storage.removeData('authToken');
       storage.removeData('userEmail');
+      storage.removeData('refreshToken');
     },
   },
 });
