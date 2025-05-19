@@ -1,14 +1,13 @@
 import { AuthForm } from '@/components/form/AuthForm';
-import { authService } from '@/service/authService';
-import { useNavigate } from 'react-router-dom';
 import type { RegisterPayload } from '@/interfaces/register-payload';
+import { useAuth } from '@/hooks/useAuth';
 
 export function LoginPage() {
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (data: RegisterPayload) => {
     try {
-      await authService.login(data.email, data.password, navigate);
+      await login(data.email, data.password);
     } catch (error) {
       console.error('Login failed:', error);
     }

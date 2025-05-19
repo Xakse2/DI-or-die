@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button/button';
 import { Input } from '@/components/ui/input/input';
 import { Label } from '@/components/ui/label/label';
 import './registration.css';
-import { registerUser } from '@/service/registrationService';
+import { useRegisterUser } from '@/hooks/useRegistration';
 
 export interface FormFields {
   email: string;
@@ -60,7 +59,6 @@ export function RegistrationPage() {
   });
 
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
-  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -84,14 +82,14 @@ export function RegistrationPage() {
     return isValid;
   };
 
-  const dispatch = useDispatch();
+  const { registerUser } = useRegisterUser();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!validateForm()) return;
 
     try {
-      await registerUser(formData, navigate, dispatch);
+      await registerUser(formData);
     } catch (error) {
       console.error('Registration failed:', error);
       setErrors({
