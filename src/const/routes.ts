@@ -7,6 +7,7 @@ import { Mens } from '@/pages/catalog/Mens';
 import { Womens } from '@/pages/catalog/Womens';
 import { Conditions } from '@/pages/privacy/Conditions';
 import { Privacy } from '@/pages/privacy/Privacy';
+import { SalePage } from '@/pages/sale/salePage';
 
 export const routes: RoutePages[] = [
   { path: '/', element: HomePage },
@@ -17,4 +18,5 @@ export const routes: RoutePages[] = [
   { path: '/womens', element: Womens },
   { path: '/footer_cou', element: Conditions },
   { path: '/footer_privacy', element: Privacy },
+  { path: '/sale', element: SalePage },
 ];

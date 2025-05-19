@@ -37,7 +37,13 @@ export function LoginMenu() {
     const savedEmail = storage.getData('userEmail');
 
     if (savedToken && savedEmail) {
-      dispatch(login({ token: savedToken, username: savedEmail }));
+      dispatch(
+        login({
+          authToken: savedToken,
+          username: savedEmail,
+          refreshToken: '',
+        }),
+      );
     }
   }, [dispatch]);
 
@@ -48,7 +54,9 @@ export function LoginMenu() {
       {isAuthenticated ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">{username}</Button>
+            <Button variant="outline">
+              {username.length > 10 ? `${username.slice(0, 9)}…` : username}
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -8,7 +8,7 @@ export function Header() {
       <Link to="/" className="justify-items-center  h-auto">
         <img className="h-[5rem]" src="/logosneak.svg" alt="logo" />
       </Link>
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between">
         <NavigationPagesMenu />
         <LoginMenu />
       </div>
