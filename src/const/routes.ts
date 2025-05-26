@@ -5,8 +5,8 @@ import { RegistrationPage } from '@/pages/registration/RegistrationPage';
 import { AboutPage } from '@/pages/about/AboutPage';
 import { Mens } from '@/pages/catalog/Mens';
 import { Womens } from '@/pages/catalog/Womens';
-import { Conditions } from '@/pages/privacy/Conditions';
-import { Privacy } from '@/pages/privacy/Privacy';
+import Conditions from '@/pages/privacy/Conditions';
+import Privacy from '@/pages/privacy/Privacy';
 import { SalePage } from '@/pages/sale/salePage';
 
 export const routes: RoutePages[] = [
