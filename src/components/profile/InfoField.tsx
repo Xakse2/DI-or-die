@@ -8,7 +8,7 @@ interface InfoFieldProps {
 const InfoField = ({ label, value }: InfoFieldProps) => (
   <div>
     <Label>{label}:</Label>
-    <p>{value || 'N/A'}</p>
+    <p>{value ?? 'N/A'}</p>
   </div>
 );
 
