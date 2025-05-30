@@ -2,7 +2,7 @@ import type { BaseQueryApi, FetchArgs } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../store';
 import { clientTokenApi } from './api-get-token';
-import { setToken } from './token-slice';
+import { setRefreshToken, setToken } from './token-slice';
 import { refreshTokenApi } from './refreshTokenApi';
 import { baseApiURL, projectKey } from '@/const/api-data';
 
@@ -35,7 +35,9 @@ export const baseQueryWithReauth = async (
 
       if (refreshResult.data) {
         const newToken = refreshResult.data.access_token;
+        const newRefreShToken = refreshResult.data.refresh_token;
         api.dispatch(setToken(newToken));
+        api.dispatch(setRefreshToken(newRefreShToken));
         result = await BaseQuery(arguments_, api, extraOptions);
         return result;
       }
