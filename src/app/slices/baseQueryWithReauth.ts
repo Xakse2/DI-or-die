@@ -5,6 +5,7 @@ import { clientTokenApi } from './api-get-token';
 import { setRefreshToken, setToken } from './token-slice';
 import { refreshTokenApi } from './refreshTokenApi';
 import { baseApiURL, projectKey } from '@/const/api-data';
+import { logout } from './auth-slice';
 
 const BaseQuery = fetchBaseQuery({
   baseUrl: `${baseApiURL}/${projectKey}`,
@@ -41,6 +42,8 @@ export const baseQueryWithReauth = async (
         result = await BaseQuery(arguments_, api, extraOptions);
         return result;
       }
+
+      api.dispatch(logout());
     }
 
     const clientTokenResult = await api.dispatch(
