@@ -4,6 +4,7 @@ import tokenSlice from './slices/token-slice';
 import { clientTokenApi } from './slices/api-get-token';
 import { loginApi } from './slices/api-auth';
 import { registerApi } from './slices/api-register';
+import { refreshTokenApi } from './slices/refreshTokenApi';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     [clientTokenApi.reducerPath]: clientTokenApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
     [registerApi.reducerPath]: registerApi.reducer,
+    [refreshTokenApi.reducerPath]: refreshTokenApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     // eslint-disable-next-line unicorn/prefer-spread
@@ -19,6 +21,7 @@ export const store = configureStore({
       clientTokenApi.middleware,
       registerApi.middleware,
       loginApi.middleware,
+      refreshTokenApi.middleware,
     ),
 });
 
