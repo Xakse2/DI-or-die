@@ -1,21 +1,8 @@
-// import { useGetAllProductsQuery } from '@/app/slices/api-products';
 import type { Product } from '@/interfaces/prodactResponse';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
 
 const ProductsList = ({ products }: { products: Product[] }) => {
-  // const { data, error, isLoading } = useGetAllProductsQuery();
-
-  // if (isLoading) return <p>Loadimg...</p>;
-  // if (error) {
-  //   const errorMessage =
-  //     'status' in error
-  //       ? `Error: ${error.status} - ${JSON.stringify(error.data)}`
-  //       : `Error: ${error.message ?? 'Unknown error'}`;
-
-  //   return <p>{errorMessage}</p>;
-  // }
-
   const productItems = products.flatMap(product =>
     product.masterData.current.allVariants.map(variant => {
       const brandValue = variant.attributesRaw.find(
@@ -50,6 +37,9 @@ const ProductsList = ({ products }: { products: Product[] }) => {
           <div className="flex gap-2 items-center text-sm pl-4">
             color{' '}
             <p
+              style={{
+                backgroundColor: String(colorText),
+              }}
               className={`${colorText === 'black' ? 'bg-black' : `bg-${colorText}-500`} w-4 h-4 rounded-full`}
             ></p>
           </div>

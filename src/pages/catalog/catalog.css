@@ -4,7 +4,7 @@
   gap: 2.2rem;
   justify-content: space-evenly;
 
-  padding: 2rem 0;
+  padding: 2rem 1rem;
 }
 
 .product-item {
@@ -16,6 +16,16 @@
   border-radius: 0.6rem;
 
   background-color: #fff;
+
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.product-item:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 4px 6px 10px #00691733;
 }
 
 .photo {
@@ -28,5 +38,5 @@
   border-top-left-radius: 0.6rem;
   border-top-right-radius: 0.6rem;
 
-  background-color: #e7e7e7;
+  background-color: #eaeaea;
 }
