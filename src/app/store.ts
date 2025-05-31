@@ -4,6 +4,7 @@ import tokenSlice from './slices/token-slice';
 import { clientTokenApi } from './slices/api-get-token';
 import { loginApi } from './slices/api-auth';
 import { registerApi } from './slices/api-register';
+import { refreshTokenApi } from './slices/refreshTokenApi';
 import { productsApi } from './slices/api-products';
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     [clientTokenApi.reducerPath]: clientTokenApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
     [registerApi.reducerPath]: registerApi.reducer,
+    [refreshTokenApi.reducerPath]: refreshTokenApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: getDefaultMiddleware =>
@@ -21,6 +23,7 @@ export const store = configureStore({
       clientTokenApi.middleware,
       registerApi.middleware,
       loginApi.middleware,
+      refreshTokenApi.middleware,
       productsApi.middleware,
     ),
 });
