@@ -1,3 +1,32 @@
 .catalog {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+  justify-content: space-evenly;
+
+  padding: 2rem 0;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 260px;
+  border-radius: 0.6rem;
+
+  background-color: #fff;
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 180px;
+  height: 140px;
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+
+  background-color: #e7e7e7;
 }

@@ -14,14 +14,15 @@ interface Attribute {
   value: string | number | { key: string; label: string };
 }
 
-interface MasterVariant {
+interface AllVariant {
   attributesRaw: Attribute[];
   prices: Price[];
   images: Image[];
+  key: string;
 }
 
 interface ProductData {
-  masterVariant: MasterVariant;
+  allVariants: AllVariant[];
 }
 
 export interface Product {

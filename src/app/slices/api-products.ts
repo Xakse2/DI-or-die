@@ -32,7 +32,7 @@ export const productsApi = createApi({
       id
       masterData {
         current {
-          masterVariant {
+          allVariants {
             attributesRaw {
               name
               value
@@ -46,6 +46,7 @@ export const productsApi = createApi({
               images {
               url
             }
+              key
           }
         }
       }

@@ -10,8 +10,10 @@ import { navigationMenuTriggerStyle } from '../ui/menu/navigation-menu-style';
 import type { MenuItems } from '@/interfaces/menuItems';
 
 const menuCatalogItems: MenuItems[] = [
+  { title: 'All sneakers', link: '/products' },
   { title: 'For Men', link: '/mens' },
   { title: 'For Women', link: '/womens' },
+  { title: 'Sport', link: '/sport' },
 ];
 
 const menuItems: MenuItems[] = [
