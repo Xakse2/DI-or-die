@@ -1,8 +1,13 @@
-import { useGetAllProductsQuery } from '@/app/slices/api-products';
+import { useGetCategoryProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
 
+const styles = {
+  attribute: 'style',
+  value: 'sport',
+};
+
 export function Sport() {
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const { data, error, isLoading } = useGetCategoryProductsQuery(styles);
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -15,22 +20,10 @@ export function Sport() {
   }
   console.log({ data, error, isLoading });
 
-  const menProducts = data?.products?.results?.filter(product =>
-    product.masterData.current.allVariants.some(variant =>
-      variant.attributesRaw.some(
-        attribute =>
-          attribute.name === 'style' &&
-          typeof attribute.value === 'object' &&
-          'key' in attribute.value &&
-          attribute.value.key === 'sport',
-      ),
-    ),
-  );
-
   return (
     <div className="bg-gray-100 w-full">
-      <h1 className="text-4xl">Sport sneakers</h1>
-      <ProductsList products={menProducts ?? []} />
+      <h1 className="text-4xl text-center pt-4">Sport sneakers</h1>
+      <ProductsList products={data?.products?.results ?? []} />
     </div>
   );
 }

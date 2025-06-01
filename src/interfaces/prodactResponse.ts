@@ -7,6 +7,12 @@ interface Price {
     centAmount: number;
     currencyCode: string;
   };
+  discounted?: {
+    value: {
+      centAmount: number;
+      currencyCode: string;
+    };
+  };
 }
 
 interface Attribute {
@@ -14,7 +20,7 @@ interface Attribute {
   value: string | number | { key: string; label: string };
 }
 
-interface AllVariant {
+interface MasterVariant {
   attributesRaw: Attribute[];
   prices: Price[];
   images: Image[];
@@ -22,7 +28,8 @@ interface AllVariant {
 }
 
 interface ProductData {
-  allVariants: AllVariant[];
+  // allVariants: AllVariant[];
+  masterVariant: MasterVariant;
 }
 
 export interface Product {

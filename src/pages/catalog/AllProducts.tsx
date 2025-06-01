@@ -17,7 +17,7 @@ export function AllProducts() {
 
   return (
     <div className="bg-gray-100 w-full">
-      <h1 className="text-4xl">All sneakers</h1>
+      <h1 className="text-4xl text-center pt-4">All sneakers</h1>
       <ProductsList products={data?.products?.results ?? []} />
     </div>
   );

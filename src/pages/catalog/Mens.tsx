@@ -1,8 +1,13 @@
-import { useGetAllProductsQuery } from '@/app/slices/api-products';
+import { useGetCategoryProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
 
+const genderMen = {
+  attribute: 'gender',
+  value: 'men',
+};
+
 export function Mens() {
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const { data, error, isLoading } = useGetCategoryProductsQuery(genderMen);
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -15,24 +20,10 @@ export function Mens() {
   }
   console.log({ data, error, isLoading });
 
-  const menProducts = data?.products?.results?.filter(product =>
-    product.masterData.current.allVariants.some(
-      variant =>
-        variant.attributesRaw.some(
-          attribute =>
-            attribute.name === 'gender' &&
-            typeof attribute.value === 'object' &&
-            'key' in attribute.value &&
-            attribute.value.key === 'men',
-        ) ||
-        !variant.attributesRaw.some(attribute => attribute.name === 'gender'),
-    ),
-  );
-
   return (
     <div className="bg-gray-100 w-full">
-      <h1 className="text-4xl">Mens sneakers</h1>
-      <ProductsList products={menProducts ?? []} />
+      <h1 className="text-4xl text-center pt-4">Mens sneakers</h1>
+      <ProductsList products={data?.products?.results ?? []} />
     </div>
   );
 }
