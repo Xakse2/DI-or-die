@@ -55,7 +55,7 @@ export const productsApi = createApi({
         method: 'POST',
         body: {
           query: `query {
-            products( limit: 10,
+            products ( limit: 10,
       where: "masterData(current(masterVariant(attributes(name=\\\"${attribute}\\\" and value(key=\\\"${value}\\\")))) )"
     ) {
       results {
@@ -94,8 +94,52 @@ export const productsApi = createApi({
       transformResponse: (response: { data: ProductsResponse }) =>
         response.data,
     }),
+    getProductCard: builder.query<ProductsResponse, { id: string }>({
+      query: ({ id }) => ({
+        url: '/graphql',
+        method: 'POST',
+        body: {
+          query: `query {
+          product (id: "${id}") {
+    skus
+    masterData {
+      current {
+        allVariants {
+          images {
+            url
+          }
+          prices {
+            value {
+              centAmount
+              currencyCode
+            }
+            discounted {
+              value {
+                centAmount
+                currencyCode
+              }
+            }
+          }
+          attributesRaw {
+            name
+            value
+        }
+            }
+        }
+      }
+    }
+  }`,
+          // variables: { id },
+        },
+      }),
+      transformResponse: (response: { data: ProductsResponse }) =>
+        response.data,
+    }),
   }),
 });
 
-export const { useGetAllProductsQuery, useGetCategoryProductsQuery } =
-  productsApi;
+export const {
+  useGetAllProductsQuery,
+  useGetCategoryProductsQuery,
+  useGetProductCardQuery,
+} = productsApi;
