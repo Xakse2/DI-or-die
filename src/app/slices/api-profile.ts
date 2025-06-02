@@ -31,4 +31,5 @@ export const userProfileApi = createApi({
   }),
 });
 
-export const { useGetUserProfileQuery, useUpdateUserProfileMutation } = userProfileApi;
+export const { useGetUserProfileQuery, useUpdateUserProfileMutation } =
+  userProfileApi;
