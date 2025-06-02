@@ -6,7 +6,11 @@ interface EditableFieldProps {
   onChange: (value: string) => void;
 }
 
-export const EditableField = ({ label, value, onChange }: EditableFieldProps) => {
+export const EditableField = ({
+  label,
+  value,
+  onChange,
+}: EditableFieldProps) => {
   const [inputValue, setInputValue] = useState(value);
 
   return (
@@ -15,9 +19,9 @@ export const EditableField = ({ label, value, onChange }: EditableFieldProps) =>
       <input
         type="text"
         value={inputValue}
-        onChange={e => {
-          setInputValue(e.target.value);
-          onChange(e.target.value);
+        onChange={event => {
+          setInputValue(event.target.value);
+          onChange(event.target.value);
         }}
         className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-green-500"
       />

@@ -1,4 +1,7 @@
-import { useGetUserProfileQuery, useUpdateUserProfileMutation } from '@/app/slices/api-profile';
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from '@/app/slices/api-profile';
 import InfoField from '@/components/profile/InfoField';
 import AddressCard from '@/components/profile/AddressCard';
 import { useState } from 'react';
@@ -35,10 +38,10 @@ export const UserProfilePage = () => {
     setIsEditMode(prev => !prev);
     if (!isEditMode) {
       setEditedData({
-        firstName: firstName || '',
-        lastName: lastName || '',
-        dateOfBirth: dateOfBirth || '',
-        addresses: addresses || [],
+        firstName: firstName ?? '',
+        lastName: lastName ?? '',
+        dateOfBirth: dateOfBirth ?? '',
+        addresses: addresses ?? [],
       });
     }
   };
@@ -55,8 +58,8 @@ export const UserProfilePage = () => {
 
       setIsEditMode(false);
       alert('Changes saved successfully!');
-    } catch (err) {
-      console.error('Failed to save changes:', err);
+    } catch (error_) {
+      console.error('Failed to save changes:', error_);
       alert('Failed to save changes. Please try again.');
     }
   };
@@ -71,9 +74,27 @@ export const UserProfilePage = () => {
         <div className="space-y-2">
           {isEditMode ? (
             <>
-              <EditableField label="First Name" value={editedData.firstName} onChange={value => setEditedData({ ...editedData, firstName: value })} />
-              <EditableField label="Last Name" value={editedData.lastName} onChange={value => setEditedData({ ...editedData, lastName: value })} />
-              <EditableField label="Date of Birth" value={editedData.dateOfBirth} onChange={value => setEditedData({ ...editedData, dateOfBirth: value })} />
+              <EditableField
+                label="First Name"
+                value={editedData.firstName}
+                onChange={value =>
+                  setEditedData({ ...editedData, firstName: value })
+                }
+              />
+              <EditableField
+                label="Last Name"
+                value={editedData.lastName}
+                onChange={value =>
+                  setEditedData({ ...editedData, lastName: value })
+                }
+              />
+              <EditableField
+                label="Date of Birth"
+                value={editedData.dateOfBirth}
+                onChange={value =>
+                  setEditedData({ ...editedData, dateOfBirth: value })
+                }
+              />
             </>
           ) : (
             <>
@@ -98,12 +119,20 @@ export const UserProfilePage = () => {
         )}
       </section>
       {isEditMode && (
-        <Button onClick={handleSaveChanges} variant="green" className="mt-4 w-full">
+        <Button
+          onClick={handleSaveChanges}
+          variant="green"
+          className="mt-4 w-full"
+        >
           Save Changes
         </Button>
       )}
 
-      {updateError && <p className="text-red-500 mt-4">Failed to update profile. Please try again.</p>}
+      {updateError && (
+        <p className="text-red-500 mt-4">
+          Failed to update profile. Please try again.
+        </p>
+      )}
     </div>
   );
 };
