@@ -10,8 +10,10 @@ import { navigationMenuTriggerStyle } from '../ui/menu/navigation-menu-style';
 import type { MenuItems } from '@/interfaces/menuItems';
 
 const menuCatalogItems: MenuItems[] = [
+  { title: 'All sneakers', link: '/products' },
   { title: 'For Men', link: '/mens' },
   { title: 'For Women', link: '/womens' },
+  { title: 'Sport', link: '/sport' },
 ];
 
 const menuItems: MenuItems[] = [
@@ -24,7 +26,9 @@ export function NavigationPagesMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Catalog</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="cursor-pointer">
+            Catalog
+          </NavigationMenuTrigger>
           <NavigationMenuContent className="bg-white shadow-md rounded-md">
             <ul className="flex flex-col gap-2 p-4">
               {menuCatalogItems.map((item, index) => (

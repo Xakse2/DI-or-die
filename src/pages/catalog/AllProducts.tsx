@@ -1,13 +1,8 @@
-import { useGetCategoryProductsQuery } from '@/app/slices/api-products';
+import { useGetAllProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
 
-const genderWomen = {
-  attribute: 'gender',
-  value: 'women',
-};
-
-export function Womens() {
-  const { data, error, isLoading } = useGetCategoryProductsQuery(genderWomen);
+export function AllProducts() {
+  const { data, error, isLoading } = useGetAllProductsQuery();
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -22,7 +17,7 @@ export function Womens() {
 
   return (
     <div className="bg-gray-100 w-full">
-      <h1 className="text-4xl text-center pt-4">Womens sneakers</h1>
+      <h1 className="text-4xl text-center pt-4">All sneakers</h1>
       <ProductsList products={data?.products?.results ?? []} />
     </div>
   );
