@@ -17,3 +17,7 @@ label {
   position: relative;
   outline: none;
 }
+
+.relative {
+  position: relative;
+}
