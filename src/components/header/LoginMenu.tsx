@@ -61,7 +61,7 @@ export function LoginMenu() {
           <DropdownMenuContent className="w-56 bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-green-600 h-[2px]" />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate('/profile')}>
               <User />
               <span>Profile</span>
             </DropdownMenuItem>
