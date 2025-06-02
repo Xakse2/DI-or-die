@@ -8,10 +8,10 @@ import { Womens } from '@/pages/catalog/Womens';
 import { AllProducts } from '@/pages/catalog/AllProducts';
 import { Conditions } from '@/pages/privacy/Conditions';
 import { Privacy } from '@/pages/privacy/Privacy';
-
 import { SalePage } from '@/pages/sale/salePage';
 import { Sport } from '@/pages/catalog/Sport';
 import { ProductCard } from '@/pages/catalog/ProductCard';
+import { UserProfilePage } from '@/pages/profile/UserProfilePage';
 
 export const routes: RoutePages[] = [
   { path: '/', element: HomePage },
@@ -26,4 +26,5 @@ export const routes: RoutePages[] = [
   { path: '/footer_privacy', element: Privacy },
   { path: '/sale', element: SalePage },
   { path: '/product/:productId', element: ProductCard },
+  { path: '/profile', element: UserProfilePage },
 ];
