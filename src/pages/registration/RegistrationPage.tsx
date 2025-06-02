@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button/button';
-import { Input } from '@/components/ui/input/input';
-import { Label } from '@/components/ui/label/label';
+import { FormField } from '@/components/form/FormField';
 import './registration.css';
 import { useRegisterUser } from '@/hooks/useRegistration';
 
@@ -86,6 +85,8 @@ export function RegistrationPage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setErrors({});
+
     if (!validateForm()) return;
 
     try {
@@ -106,13 +107,13 @@ export function RegistrationPage() {
     placeholder?: string,
   ) => (
     <div>
-      <Label htmlFor={name}>{label}</Label>
-      <Input
-        id={name}
-        type={type}
+      <FormField
         name={name}
+        label={label}
+        type={type}
         value={formData[name]}
         onChange={handleChange}
+        error={errors[name]}
         placeholder={placeholder ?? `Enter your ${label.toLowerCase()}`}
       />
     </div>
@@ -146,11 +147,6 @@ export function RegistrationPage() {
               field.name as keyof FormFields,
               field.label,
               field.type,
-            )}
-            {errors[field.name as keyof FormFields] && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors[field.name as keyof FormFields]}
-              </p>
             )}
           </div>
         ))}
