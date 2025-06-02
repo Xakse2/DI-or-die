@@ -64,7 +64,8 @@ const ProductsList = ({ products }: { products: Product[] }) => {
             {formattedPrice} {priceObject?.value.currencyCode}
           </span>
           <span className="text-red-600 font-bold text-xl">
-            {formattedDiscountedPrice} {priceObject?.value.currencyCode}
+            {formattedDiscountedPrice}{' '}
+            {priceObject?.discounted?.value.currencyCode}
           </span>
         </p>
       </li>

@@ -1,6 +1,9 @@
 /* eslint-disable no-useless-escape */
 import { createApi } from '@reduxjs/toolkit/query/react';
-import type { ProductsResponse } from '@/interfaces/prodactResponse';
+import type {
+  ProductsResponse,
+  SingleProductResponse,
+} from '@/interfaces/prodactResponse';
 import { baseQueryWithReauth } from './baseQueryWithReauth';
 
 export const productsApi = createApi({
@@ -26,6 +29,12 @@ export const productsApi = createApi({
               value
             }
             prices {
+            discounted {
+                value {
+                  centAmount
+                  currencyCode
+                }
+              }
               value {
                 centAmount
                 currencyCode
@@ -94,7 +103,7 @@ export const productsApi = createApi({
       transformResponse: (response: { data: ProductsResponse }) =>
         response.data,
     }),
-    getProductCard: builder.query<ProductsResponse, { id: string }>({
+    getProductCard: builder.query<SingleProductResponse, { id: string }>({
       query: ({ id }) => ({
         url: '/graphql',
         method: 'POST',
@@ -132,7 +141,7 @@ export const productsApi = createApi({
           // variables: { id },
         },
       }),
-      transformResponse: (response: { data: ProductsResponse }) =>
+      transformResponse: (response: { data: SingleProductResponse }) =>
         response.data,
     }),
   }),

@@ -27,8 +27,15 @@ interface MasterVariant {
   key: string;
 }
 
+export interface AllVariant {
+  attributesRaw: Attribute[];
+  prices: Price[];
+  images: Image[];
+  key: string;
+}
+
 interface ProductData {
-  // allVariants: AllVariant[];
+  allVariants: AllVariant[];
   masterVariant: MasterVariant;
 }
 
@@ -43,5 +50,14 @@ export interface ProductsResponse {
   products: {
     total: number;
     results: Product[];
+  };
+}
+
+export interface SingleProductResponse {
+  product: {
+    skus: string[];
+    masterData: {
+      current: ProductData;
+    };
   };
 }
