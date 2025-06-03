@@ -28,8 +28,22 @@ export const userProfileApi = createApi({
         },
       }),
     }),
+    changePassword: builder.mutation({
+      query: ({ version, currentPassword, newPassword }) => ({
+        url: '/password',
+        method: 'POST',
+        body: {
+          version,
+          currentPassword,
+          newPassword,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetUserProfileQuery, useUpdateUserProfileMutation } =
-  userProfileApi;
+export const {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+  useChangePasswordMutation,
+} = userProfileApi;
