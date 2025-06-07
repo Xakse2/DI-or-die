@@ -23,6 +23,7 @@ export const productsApi = createApi({
       id
       masterData {
         current {
+          name(locale: "en-GB")
           masterVariant {
             attributesRaw {
               name
@@ -71,6 +72,7 @@ export const productsApi = createApi({
       id
         masterData {
           current {
+            name(locale: "en-GB")
             masterVariant {
               attributesRaw {
                 name
@@ -113,6 +115,8 @@ export const productsApi = createApi({
     skus
     masterData {
       current {
+        name(locale: "en-GB")
+        description(locale: "en-GB")
         allVariants {
           images {
             url

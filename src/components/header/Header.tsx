@@ -12,6 +12,7 @@ export function Header() {
         <NavigationPagesMenu />
         <LoginMenu />
       </div>
+      <div className="flex justify-center w-[100%]  py-2 border-b-4 border-[var(--custom-green)]"></div>
     </header>
   );
 }

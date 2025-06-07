@@ -97,7 +97,7 @@ export function LoginMenu() {
         })
       )}
 
-      <div>
+      <div className="transition-transform duration-300 hover:scale-110 cursor-pointer">
         <img src="/basket.svg" alt="basket" />
       </div>
     </div>
