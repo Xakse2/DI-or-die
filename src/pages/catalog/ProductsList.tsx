@@ -57,7 +57,7 @@ const ProductsList = ({ products }: { products: Product[] }) => {
               {priceObject?.discounted?.value.currencyCode}
             </span>
           </p>
-          <div className="text-center pb-4">
+          <div className="text-center pb-3">
             <Button variant={'green'}>Add basket</Button>
           </div>
         </div>
