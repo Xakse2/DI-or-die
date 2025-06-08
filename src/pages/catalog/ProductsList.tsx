@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
 
-const ProductsList = ({ products }: { products: Product[] }) => {
+const ProductsList = ({
+  products,
+  handleCreateBasket,
+}: {
+  products: Product[];
+  handleCreateBasket: () => void;
+}) => {
   const navigate = useNavigate();
 
   const handleClick = (productId: string) => {
@@ -58,7 +64,9 @@ const ProductsList = ({ products }: { products: Product[] }) => {
             </span>
           </p>
           <div className="text-center pb-3">
-            <Button variant={'green'}>Add basket</Button>
+            <Button variant={'green'} onClick={handleCreateBasket}>
+              Add basket
+            </Button>
           </div>
         </div>
       </li>

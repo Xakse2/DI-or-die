@@ -9,7 +9,7 @@ const styles = {
 export function Sport() {
   const { data, error, isLoading } = useGetCategoryProductsQuery(styles);
 
-  if (isLoading) return <p>Loadimg...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) {
     const errorMessage =
       'status' in error
