@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
 
+const handleAddToBasket = (event: React.MouseEvent<HTMLButtonElement>) => {
+  event.stopPropagation();
+  console.log('Product add to basket');
+};
+
 const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
 
@@ -58,7 +63,9 @@ const ProductsList = ({ products }: { products: Product[] }) => {
             </span>
           </p>
           <div className="text-center pb-3">
-            <Button variant={'green'}>Add basket</Button>
+            <Button variant={'green'} onClick={handleAddToBasket}>
+              Add basket
+            </Button>
           </div>
         </div>
       </li>
