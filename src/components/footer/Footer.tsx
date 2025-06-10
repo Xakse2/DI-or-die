@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 export function Footer() {
   return (
     <footer className="flex flex-col items-center gap-2 w-full">
-      <div className="flex justify-center w-[100%] border-b-4 border-[var(--custom-green)]">
-        {/* <NavigationPagesMenu /> */}
-      </div>
+      <div className="flex justify-center w-[100%] border-b-4 border-[var(--custom-green)]"></div>
       <Link to="/" className="items-center  h-auto py-2">
         <img className="h-[3rem]" src="/logosneak.svg" alt="logo" />
       </Link>

@@ -2,18 +2,22 @@ import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
 
-const ProductsList = ({
-  products,
-  handleCreateBasket,
-}: {
-  products: Product[];
-  handleCreateBasket: () => void;
-}) => {
+const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
+  };
+
+  const { handleCreateBasket } = useCreateBasket();
+  const handleAddToBasket = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.stopPropagation();
+    await handleCreateBasket();
+    console.log('Product add to basket');
   };
 
   const productItems = products.map(product => {
@@ -64,7 +68,7 @@ const ProductsList = ({
             </span>
           </p>
           <div className="text-center pb-3">
-            <Button variant={'green'} onClick={handleCreateBasket}>
+            <Button variant={'green'} onClick={handleAddToBasket}>
               Add basket
             </Button>
           </div>

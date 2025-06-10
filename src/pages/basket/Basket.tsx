@@ -1,14 +1,16 @@
-import { useAnonymousSession } from '@/hooks/useAnonimToken';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
+
 import { useEffect } from 'react';
 
 export function BasketPage() {
-  const { token } = useAnonymousSession();
+  const { handleCreateBasket } = useCreateBasket();
+  console.log(2);
 
   useEffect(() => {
-    if (token) {
-      console.log('Anonymous token:', token);
-    }
-  }, [token]);
+    void handleCreateBasket().catch(error =>
+      console.error('Error creating basket:', error),
+    );
+  }, []);
 
   return <h3>Basket</h3>;
 }

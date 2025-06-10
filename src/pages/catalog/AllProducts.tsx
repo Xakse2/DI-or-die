@@ -13,7 +13,7 @@ export function AllProducts() {
 
     return <p>{errorMessage}</p>;
   }
-  console.log({ data, error, isLoading });
+  // console.log({ data, error, isLoading });
 
   return (
     <div className="bg-gray-100 w-full">
