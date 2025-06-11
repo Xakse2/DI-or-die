@@ -16,7 +16,7 @@ export const anonymousToken = createApi({
     },
   }),
   endpoints: builder => ({
-    getAnonymousSession: builder.query({
+    getAnonymousSession: builder.mutation({
       query: () => ({
         url: '/anonymous/token',
         method: 'POST',
@@ -28,4 +28,4 @@ export const anonymousToken = createApi({
   }),
 });
 
-export const { useGetAnonymousSessionQuery } = anonymousToken;
+export const { useGetAnonymousSessionMutation } = anonymousToken;

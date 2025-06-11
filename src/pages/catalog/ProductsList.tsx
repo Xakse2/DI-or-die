@@ -2,22 +2,50 @@ import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
-import { useCreateBasket } from '@/hooks/useCreateBasket';
+import { useGetNewBasketMutation } from '@/app/slices/api-basket';
+import { useGetAnonymousSessionMutation } from '@/app/slices/api-anonim';
+import { storage } from '@/service/local-storage';
+// import { useCreateBasket } from '@/hooks/useCreateBasket';
 
 const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
+  const [getAnonymousSession] = useGetAnonymousSessionMutation();
+  const [createBasket] = useGetNewBasketMutation();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
   };
 
-  const { handleCreateBasket } = useCreateBasket();
   const handleAddToBasket = async (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.stopPropagation();
-    await handleCreateBasket();
-    console.log('Product add to basket');
+    const anonymousToken = storage.getData('anonymousToken');
+    const authToken = storage.getData('authToken');
+    let activeToken = authToken ?? anonymousToken;
+
+    if (!activeToken) {
+      try {
+        const response = await getAnonymousSession({
+          anonymous_id: 'guest-session',
+        }).unwrap();
+
+        console.log('Anonymous token', response.access_token);
+        storage.setData('anonymousToken', response.access_token);
+        activeToken = response.access_token;
+      } catch (error) {
+        console.error('Error get anonymous token:', error);
+        return;
+      }
+    }
+    if (activeToken) {
+      try {
+        const basketResponse = await createBasket({ currency: 'EUR' }).unwrap();
+        console.log('New basket:', basketResponse);
+      } catch (error) {
+        console.error('Error get new basket:', error);
+      }
+    }
   };
 
   const productItems = products.map(product => {
