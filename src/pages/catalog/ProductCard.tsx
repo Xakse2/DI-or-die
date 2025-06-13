@@ -7,8 +7,6 @@ import { ChevronRightIcon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import './catalog.css';
 
-// import type { AllVariant } from '@/interfaces/prodactResponse';
-
 export function ProductCard() {
   const { productId } = useParams<{ productId: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -42,9 +40,7 @@ export function ProductCard() {
   let genderText;
   if (genderValue) {
     genderText =
-      typeof genderValue === 'object'
-        ? `For ${genderValue.label}`
-        : `For ${genderValue}`;
+      typeof genderValue === 'object' ? genderValue.label : genderValue;
   }
 
   const styleValue = variants[0].attributesRaw.find(
@@ -97,43 +93,43 @@ export function ProductCard() {
     );
 
   return (
-    <div className="card-element flex py-8 px-6 justify-evenly w-full">
-      <div className="image-slider">
-        {images.length > 0 ? (
-          <>
-            <Button
-              variant="outline"
-              size="icon"
-              className="slider-button left size-8"
-              onClick={prevImage}
-            >
-              <ChevronLeft />
-            </Button>
-            <img src={images[currentImageIndex]} alt="Product" />
-            <Button
-              variant="outline"
-              size="icon"
-              className="slider-button right size-8"
-              onClick={nextImage}
-            >
-              <ChevronRightIcon />
-            </Button>
-          </>
-        ) : (
-          <p>No images available</p>
-        )}
-      </div>
-      <div className="description flex flex-col gap-4 pl-4 w-[40%]">
-        <h2 className="text-3xl pb-2">{brandText}</h2>
-        <div className="flex gap-4 flex-wrap">
-          <p>{genderText}</p>
-          <p>{styleText}</p>
+    <div className="py-8 px-6  max-w-[1280px]">
+      <div className="card-element flex justify-evenly">
+        <div className="image-slider">
+          {images.length > 0 ? (
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                className="slider-button left size-8"
+                onClick={prevImage}
+              >
+                <ChevronLeft />
+              </Button>
+              <img src={images[currentImageIndex]} alt="Product" />
+              <Button
+                variant="outline"
+                size="icon"
+                className="slider-button right size-8"
+                onClick={nextImage}
+              >
+                <ChevronRightIcon />
+              </Button>
+            </>
+          ) : (
+            <p>No images available</p>
+          )}
         </div>
-        <div className="">
-          {priceData.map((data, index) => (
-            <div key={index} className="text-lg">
-              <p>
-                <span
+        <div className="description flex flex-col gap-2 pl-4">
+          <h2 className="text-3xl">{data?.product?.masterData.current.name}</h2>
+          <div className="flex gap-4 flex-wrap">
+            <p>{genderText}</p>
+            <p>{styleText}</p>
+          </div>
+          <div className="">
+            {priceData.map((data, index) => (
+              <div key={index} className="text-lg flex items-end gap-4">
+                <p
                   className={
                     data.discountedPrice
                       ? 'line-through'
@@ -141,44 +137,52 @@ export function ProductCard() {
                   }
                 >
                   {data.price} {data.currency}
-                </span>
-              </p>
-              {data.discountedPrice && (
-                <p className="text-red-500 font-bold text-xl">
-                  {data.discountedPrice} {data.currency}
                 </p>
-              )}
+                {data.discountedPrice && (
+                  <p className="text-red-500 font-bold text-xl">
+                    {data.discountedPrice} {data.currency}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <div>
+            <div className="flex gap-2 items-center">
+              <p className="">color</p>
+              {colors.map((color, index) => {
+                const colorText =
+                  typeof color === 'object' ? color.label : color;
+                return (
+                  <p
+                    key={index}
+                    className="w-8 h-8 rounded-full"
+                    style={{ backgroundColor: String(colorText) }}
+                  ></p>
+                );
+              })}
             </div>
-          ))}
-        </div>
-        <div>
-          <p className="pb-2">Available colors:</p>
-          <div className="flex gap-2 ">
-            {colors.map((color, index) => {
-              const colorText = typeof color === 'object' ? color.label : color;
-              return (
-                <p
-                  key={index}
-                  className="w-8 h-8 rounded-full"
-                  style={{ backgroundColor: String(colorText) }}
-                ></p>
-              );
-            })}
+          </div>
+          <div>
+            <p className="pb-2">Available size:</p>
+            <div className="flex gap-2">
+              {sizes.map((size, index) => {
+                const sizeText = typeof size === 'object' ? size.label : size;
+                return (
+                  <p key={index} className="w-8 h-8 border rounded text-center">
+                    {sizeText}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+          <div className="pt-2">
+            <Button variant={'green'}>Add basket</Button>
           </div>
         </div>
-        <div>
-          <p className="pb-2">Available size:</p>
-          <div className="flex gap-2">
-            {sizes.map((size, index) => {
-              const sizeText = typeof size === 'object' ? size.label : size;
-              return (
-                <p key={index} className="w-8 h-8 border rounded text-center">
-                  {sizeText}
-                </p>
-              );
-            })}
-          </div>
-        </div>
+      </div>
+      <div className="pt-6">
+        <p className="text-lg pb-2">brand: {brandText}</p>
+        <p>description: {data?.product?.masterData.current.description}</p>
       </div>
     </div>
   );
