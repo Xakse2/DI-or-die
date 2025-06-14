@@ -6,10 +6,14 @@ import { Button } from '@/components/ui/button/button';
 import { ChevronRightIcon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import './catalog.css';
+import { useBasketActions } from '@/hooks/useBasketActions';
 
 export function ProductCard() {
   const { productId } = useParams<{ productId: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { handleAddToBasket } = useBasketActions();
+
   const { data, error, isLoading } = useGetProductCardQuery(
     productId ? { id: productId } : skipToken,
   );
@@ -176,7 +180,12 @@ export function ProductCard() {
             </div>
           </div>
           <div className="pt-2">
-            <Button variant={'green'}>Add basket</Button>
+            <Button
+              variant={'green'}
+              onClick={event => handleAddToBasket(event)}
+            >
+              Add basket
+            </Button>
           </div>
         </div>
       </div>

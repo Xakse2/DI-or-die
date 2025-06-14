@@ -2,59 +2,16 @@ import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
-import {
-  useCheckActiveBasketQuery,
-  useGetNewBasketMutation,
-} from '@/app/slices/api-basket';
-import { useGetAnonymousSessionMutation } from '@/app/slices/api-anonim';
-import { storage } from '@/service/local-storage';
+import { useBasketActions } from '@/hooks/useBasketActions';
 
 const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
-  const [getAnonymousSession] = useGetAnonymousSessionMutation();
-  const [createBasket] = useGetNewBasketMutation();
-  const { data: activeCart } = useCheckActiveBasketQuery();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
   };
 
-  const handleAddToBasket = async (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.stopPropagation();
-    const anonymousToken = storage.getData('anonymousToken');
-    const authToken = storage.getData('authToken');
-    let activeToken = authToken ?? anonymousToken;
-
-    if (!activeToken) {
-      try {
-        const response = await getAnonymousSession({
-          anonymous_id: 'guest-session',
-        }).unwrap();
-
-        console.log('Anonymous token', response.access_token);
-        storage.setData('anonymousToken', response.access_token);
-        activeToken = response.access_token;
-      } catch (error) {
-        console.error('Error get anonymous token:', error);
-        return;
-      }
-    }
-    if (activeToken) {
-      if (activeCart) {
-        console.log('Active cart already exists, skipping creation.');
-
-        return;
-      }
-      try {
-        const basketResponse = await createBasket({ currency: 'EUR' }).unwrap();
-        console.log('New basket:', basketResponse);
-      } catch (error) {
-        console.error('Error get new basket:', error);
-      }
-    }
-  };
+  const { handleAddToBasket } = useBasketActions();
 
   const productItems = products.map(product => {
     const variant = product.masterData.current.masterVariant;
@@ -104,7 +61,10 @@ const ProductsList = ({ products }: { products: Product[] }) => {
             </span>
           </p>
           <div className="text-center pb-3">
-            <Button variant={'green'} onClick={handleAddToBasket}>
+            <Button
+              variant={'green'}
+              onClick={event => handleAddToBasket(event)}
+            >
               Add basket
             </Button>
           </div>

@@ -2,25 +2,12 @@ import {
   useCheckActiveBasketQuery,
   useGetNewBasketMutation,
 } from '@/app/slices/api-basket';
-
 import { storage } from '@/service/local-storage';
-// import { useEffect } from 'react';
 
 export function useCreateBasket() {
   const [createBasket] = useGetNewBasketMutation();
-  // const [loading, setLoading] = useState(false);
-  // const [token, setToken] = useState<string>('');
-
-  // useEffect(() => {
-  // const token =
-  //   storage.getData('authToken') ?? storage.getData('anonymousToken');
-  //   if (savedToken && savedToken.length > 0) {
-  //     setToken(savedToken);
-  //   }
-  // }, []);
   const {
     data: activeCart,
-    // refetch,
     error,
     isLoading,
     isUninitialized,
@@ -31,15 +18,13 @@ export function useCreateBasket() {
   });
 
   const getCreateBasket = async () => {
-    // setLoading(true);
-
     if (isLoading || isUninitialized) {
       console.log('Waiting for activeCart...');
-      return;
+      await new Promise(resolve => setTimeout(resolve, 300));
     }
 
     console.log('active basket:', activeCart);
-    if (!activeCart) {
+    if (!activeCart || (error && 'status' in error && error.status === 404)) {
       console.log('No active cart exists, creating a new one...');
       try {
         const basketResponse = await createBasket({
@@ -50,7 +35,6 @@ export function useCreateBasket() {
         console.error('Error get new basket:', error);
       }
     }
-    // setLoading(false);
   };
 
   return { getCreateBasket, activeCart, error };

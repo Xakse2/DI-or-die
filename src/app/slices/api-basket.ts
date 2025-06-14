@@ -14,7 +14,6 @@ export const basketCreateApi = createApi({
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
-      console.log(headers.get('Authorization'));
       return headers;
     },
   }),
