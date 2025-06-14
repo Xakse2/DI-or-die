@@ -3,12 +3,12 @@ import ReactMarkdown from 'react-markdown';
 import './privacy.css';
 
 function Conditions() {
-  const [markdown, setMarkdaown] = useState('');
+  const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
     fetch('policies/conditions.md')
       .then(responce => responce.text())
-      .then(text => setMarkdaown(text))
+      .then(text => setMarkdown(text))
       .catch(error => console.error(error));
   }, []);
 

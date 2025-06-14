@@ -2,15 +2,18 @@ import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
-import { useGetNewBasketMutation } from '@/app/slices/api-basket';
+import {
+  useCheckActiveBasketQuery,
+  useGetNewBasketMutation,
+} from '@/app/slices/api-basket';
 import { useGetAnonymousSessionMutation } from '@/app/slices/api-anonim';
 import { storage } from '@/service/local-storage';
-// import { useCreateBasket } from '@/hooks/useCreateBasket';
 
 const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
   const [getAnonymousSession] = useGetAnonymousSessionMutation();
   const [createBasket] = useGetNewBasketMutation();
+  const { data: activeCart } = useCheckActiveBasketQuery();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
@@ -39,6 +42,11 @@ const ProductsList = ({ products }: { products: Product[] }) => {
       }
     }
     if (activeToken) {
+      if (activeCart) {
+        console.log('Active cart already exists, skipping creation.');
+
+        return;
+      }
       try {
         const basketResponse = await createBasket({ currency: 'EUR' }).unwrap();
         console.log('New basket:', basketResponse);

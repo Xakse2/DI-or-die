@@ -11,10 +11,10 @@ export const basketCreateApi = createApi({
       const authToken = storage.getData('authToken');
       const anonymousToken = storage.getData('anonymousToken');
       const token = authToken ?? anonymousToken;
-
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
+      console.log(headers.get('Authorization'));
       return headers;
     },
   }),
@@ -22,17 +22,20 @@ export const basketCreateApi = createApi({
   endpoints: builder => ({
     getNewBasket: builder.mutation({
       query: body => ({
-        url: 'me/carts',
+        url: '/me/carts',
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body,
       }),
     }),
-    getUserBasket: builder.query({
+    checkActiveBasket: builder.query<{ id: string } | null, void>({
       query: () => ({
-        url: 'me/carts/active-cart',
+        url: '/me/active-cart',
+        method: 'GET',
+      }),
+    }),
+    getUserBasket: builder.query<{ id: string } | null, void>({
+      query: () => ({
+        url: '/me/carts',
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }),
@@ -40,5 +43,8 @@ export const basketCreateApi = createApi({
   }),
 });
 
-export const { useGetNewBasketMutation, useGetUserBasketQuery } =
-  basketCreateApi;
+export const {
+  useGetNewBasketMutation,
+  useCheckActiveBasketQuery,
+  useGetUserBasketQuery,
+} = basketCreateApi;
