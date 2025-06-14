@@ -31,5 +31,22 @@ export function BasketPage() {
     }
   }, [error]);
 
-  return <h3>Basket</h3>;
+  return (
+    <div>
+      <h3 className="text-2xl text-center pt-4">Basket</h3>
+      {activeCart && activeCart.lineItems.length > 0 ? (
+        <ul>
+          {activeCart.lineItems.map(item => (
+            <li key={item.id}>
+              {item.name} - {item.quantity}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-lg text-center py-4">
+          Your cart is currently empty.
+        </p>
+      )}
+    </div>
+  );
 }

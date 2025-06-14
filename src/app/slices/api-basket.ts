@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { baseApiURL, projectKey } from '@/const/api-data';
 import { storage } from '@/service/local-storage';
+import type { Cart } from '@/interfaces/cartResponse';
 
 export const basketCreateApi = createApi({
   reducerPath: 'basketCreateApi',
@@ -26,7 +27,7 @@ export const basketCreateApi = createApi({
         body,
       }),
     }),
-    checkActiveBasket: builder.query<{ id: string } | null, void>({
+    checkActiveBasket: builder.query<Cart | null, void>({
       query: () => ({
         url: '/me/active-cart',
         method: 'GET',
