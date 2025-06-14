@@ -22,7 +22,7 @@ export interface Cart {
   type: string;
   id: string;
   anonymousId?: string;
-  clientId?: string;
+  customerId?: string;
   lineItems: LineItem[];
   cartState: string;
   totalPrice: Price;
