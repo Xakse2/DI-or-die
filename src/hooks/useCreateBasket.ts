@@ -26,7 +26,6 @@ export function useCreateBasket() {
     }
 
     if (activeCart) {
-      console.log('Returning existing cart:', activeCart);
       return activeCart;
     }
     console.log('active basket:', activeCart);
@@ -36,14 +35,12 @@ export function useCreateBasket() {
         const basketResponse = await createBasket({
           currency: 'EUR',
         }).unwrap();
-        console.log('New basket:', basketResponse);
         await refetch();
         return basketResponse;
       } catch (error) {
         console.error('Error get new basket:', error);
       }
     }
-    // return;
   };
 
   return { getCreateBasket, activeCart, error };

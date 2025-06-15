@@ -10,12 +10,18 @@ interface ProductName {
   [key: string]: string;
 }
 
+export interface TotalPrice {
+  centAmount: number;
+  currencyCode: string;
+}
+
 export interface LineItem {
   id: string;
   name: ProductName;
   variant: MasterVariant | AllVariant;
   quantity: number;
   price: Price;
+  totalPrice: TotalPrice;
 }
 
 export interface Cart {
@@ -26,16 +32,20 @@ export interface Cart {
   customerId?: string;
   lineItems: LineItem[];
   cartState: string;
-  totalPrice: Price;
+  totalPrice: TotalPrice;
   priceRoundingMode: string;
   taxMode: string;
   taxRoundingMode: string;
   taxCalculationMode: string;
+  totalLineItemQuantity: string;
 }
 
-export type CartAction = AddLineItemAction | RemoveLineItemAction;
+export type CartAction =
+  | AddLineItemAction
+  | RemoveLineItemAction
+  | ChangeLineItemQuantity;
 
-export interface AddLineItemAction {
+interface AddLineItemAction {
   action: 'addLineItem';
   sku: string;
   productId?: string;
@@ -43,8 +53,14 @@ export interface AddLineItemAction {
   quantity: number;
 }
 
-export interface RemoveLineItemAction {
+interface RemoveLineItemAction {
   action: 'removeLineItem';
   lineItemId: string;
   quantity?: number;
+}
+
+interface ChangeLineItemQuantity {
+  action: 'changeLineItemQuantity';
+  lineItemId: string;
+  quantity: number;
 }

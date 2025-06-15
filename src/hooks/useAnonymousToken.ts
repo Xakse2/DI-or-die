@@ -1,14 +1,8 @@
 import { storage } from '@/service/local-storage';
-// import { useDispatch } from 'react-redux';
-// import { setToken } from '@/app/slices/token-slice';
 import { useGetAnonymousSessionMutation } from '@/app/slices/api-anonim';
-// import { useState } from 'react';
 
 export function useAnonymousToken() {
   const [getAnonymousSession] = useGetAnonymousSessionMutation();
-  // const dispatch = useDispatch();
-
-  // const [activeToken, setTokenReady] = useState<string>('');
 
   const getToken = async (): Promise<string | null> => {
     let activeToken: string | null =

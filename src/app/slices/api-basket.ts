@@ -18,7 +18,7 @@ export const basketCreateApi = createApi({
       return headers;
     },
   }),
-
+  tagTypes: ['Basket'],
   endpoints: builder => ({
     getNewBasket: builder.mutation({
       query: body => ({
@@ -26,12 +26,14 @@ export const basketCreateApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Basket'],
     }),
     checkActiveBasket: builder.query<Cart | null, void>({
       query: () => ({
         url: '/me/active-cart',
         method: 'GET',
       }),
+      providesTags: [{ type: 'Basket' }],
     }),
     getUserBasket: builder.query<{ id: string } | null, void>({
       query: () => ({
@@ -50,6 +52,13 @@ export const basketCreateApi = createApi({
         body: { version, actions },
       }),
     }),
+    deleteCart: builder.mutation<Cart, { cartId: string; version: number }>({
+      query: ({ cartId, version }) => ({
+        url: `/me/carts/${cartId}?version=${version}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Basket'],
+    }),
   }),
 });
 
@@ -58,4 +67,5 @@ export const {
   useCheckActiveBasketQuery,
   useGetUserBasketQuery,
   useUpdateCartMutation,
+  useDeleteCartMutation,
 } = basketCreateApi;
