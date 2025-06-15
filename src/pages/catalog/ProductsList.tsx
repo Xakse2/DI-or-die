@@ -82,7 +82,7 @@ const ProductsList = ({
                       event,
                       cartItems.find(item => item.variant.sku === sku)?.id,
                     )
-                  : handleAddToBasket(event, sku, 1)
+                  : handleAddToBasket(sku, 1, event)
               }
             >
               {isInCart ? 'Remove' : 'Add to Cart'}

@@ -10,12 +10,12 @@ export function useBasketActions() {
   const { getUpdateCart } = useUpdateCart();
 
   const handleAddToBasket = async (
-    event: React.MouseEvent<HTMLButtonElement>,
     sku: string,
     quantity: number,
+    event?: React.MouseEvent<HTMLButtonElement>,
     variantId?: number,
   ) => {
-    event.stopPropagation();
+    event?.stopPropagation();
 
     await getToken();
     const activeCart = await getCreateBasket();
