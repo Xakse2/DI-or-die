@@ -18,6 +18,8 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline',
         green:
           'bg-[var(--custom-green)] text-white shadow-xs hover:bg-[var(--custom-green)]/70 cursor-pointer',
+        remove:
+          'bg-[gray)] text-red-500 shadow-xs hover:shadow-inner bg-secondary/80 cursor-pointer',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',

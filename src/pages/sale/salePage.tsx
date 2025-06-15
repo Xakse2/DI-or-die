@@ -1,8 +1,10 @@
 import { useGetDiscountedProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
 
 export function SalePage() {
   const { data, error, isLoading } = useGetDiscountedProductsQuery();
+  const { activeCart } = useCreateBasket();
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -18,7 +20,10 @@ export function SalePage() {
   return (
     <div className="bg-gray-100 w-full">
       <h1 className="text-4xl text-center pt-4">Sale</h1>
-      <ProductsList products={data?.products?.results ?? []} />
+      <ProductsList
+        products={data?.products?.results ?? []}
+        cartItems={activeCart?.lineItems ?? []}
+      />
     </div>
   );
 }

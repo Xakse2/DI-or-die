@@ -1,21 +1,21 @@
+import type { AllVariant, MasterVariant, Price } from './prodactResponse';
+
 export interface ClientInfo {
   clientId?: string;
   isPlatformClient: boolean;
   anonymousId?: string;
 }
 
-export interface LineItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: Price;
+interface ProductName {
+  [key: string]: string;
 }
 
-export interface Price {
-  type: string;
-  currencyCode: string;
-  centAmount: number;
-  fractionDigits: number;
+export interface LineItem {
+  id: string;
+  name: ProductName;
+  variant: MasterVariant | AllVariant;
+  quantity: number;
+  price: Price;
 }
 
 export interface Cart {

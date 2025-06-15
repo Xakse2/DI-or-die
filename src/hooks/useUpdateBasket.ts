@@ -3,7 +3,6 @@ import type { CartAction } from '@/interfaces/cartResponse';
 
 export function useUpdateCart() {
   const [updateCart] = useUpdateCartMutation();
-  //   const productId = event.currentTarget.dataset.productId;
 
   const getUpdateCart = async (
     cartId: string,

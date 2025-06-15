@@ -10,7 +10,7 @@ function App() {
   const isNotFoundPage = location.pathname === '/404';
   useFetchToken();
   return (
-    <div className="mx-auto px-[60px] flex flex-col items-center max-w-full min-h-svh">
+    <div className="mx-auto px-[5%] flex flex-col items-center max-w-full min-h-svh">
       {!isNotFoundPage && <Header />}
       <Routes>
         {routes.map(({ path, element: Component }) => (
