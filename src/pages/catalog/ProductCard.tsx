@@ -89,6 +89,8 @@ export function ProductCard() {
     variant.images.map(img => img.url),
   );
 
+  const sku = variants[0].sku;
+
   const nextImage = () =>
     setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
   const prevImage = () =>
@@ -182,7 +184,7 @@ export function ProductCard() {
           <div className="pt-2">
             <Button
               variant={'green'}
-              onClick={event => handleAddToBasket(event)}
+              onClick={event => handleAddToBasket(event, sku, 1)}
             >
               Add basket
             </Button>

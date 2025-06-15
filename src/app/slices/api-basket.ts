@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { baseApiURL, projectKey } from '@/const/api-data';
 import { storage } from '@/service/local-storage';
-import type { Cart } from '@/interfaces/cartResponse';
+import type { Cart, CartAction } from '@/interfaces/cartResponse';
 
 export const basketCreateApi = createApi({
   reducerPath: 'basketCreateApi',
@@ -40,6 +40,16 @@ export const basketCreateApi = createApi({
         headers: { 'Content-Type': 'application/json' },
       }),
     }),
+    updateCart: builder.mutation<
+      Cart,
+      { cartId: string; version: number; actions: CartAction[] }
+    >({
+      query: ({ cartId, version, actions }) => ({
+        url: `/me/carts/${cartId}`,
+        method: 'POST',
+        body: { version, actions },
+      }),
+    }),
   }),
 });
 
@@ -47,4 +57,5 @@ export const {
   useGetNewBasketMutation,
   useCheckActiveBasketQuery,
   useGetUserBasketQuery,
+  useUpdateCartMutation,
 } = basketCreateApi;

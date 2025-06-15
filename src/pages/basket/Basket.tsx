@@ -34,7 +34,7 @@ export function BasketPage() {
   return (
     <div>
       <h3 className="text-2xl text-center pt-4">Basket</h3>
-      {activeCart && activeCart.lineItems.length > 0 ? (
+      {/* {activeCart && activeCart.lineItems.length > 0 ? (
         <ul>
           {activeCart.lineItems.map(item => (
             <li key={item.id}>
@@ -46,7 +46,7 @@ export function BasketPage() {
         <p className="text-lg text-center py-4">
           Your cart is currently empty.
         </p>
-      )}
+      )} */}
     </div>
   );
 }

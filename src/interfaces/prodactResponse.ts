@@ -25,6 +25,7 @@ interface MasterVariant {
   prices: Price[];
   images: Image[];
   key: string;
+  sku: string;
 }
 
 export interface AllVariant {
@@ -32,6 +33,7 @@ export interface AllVariant {
   prices: Price[];
   images: Image[];
   key: string;
+  sku: string;
 }
 
 interface ProductData {

@@ -37,6 +37,8 @@ const ProductsList = ({ products }: { products: Product[] }) => {
       ? 'line-through mr-2'
       : 'font-bold text-[var(--custom-green)] text-lg';
 
+    const sku = variant.sku;
+
     return (
       <li
         key={product.id}
@@ -63,7 +65,7 @@ const ProductsList = ({ products }: { products: Product[] }) => {
           <div className="text-center pb-3">
             <Button
               variant={'green'}
-              onClick={event => handleAddToBasket(event)}
+              onClick={event => handleAddToBasket(event, sku, 1)}
             >
               Add basket
             </Button>
