@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "resolutions": {
+    "rollup": "4.43.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b --clean && vite build",
