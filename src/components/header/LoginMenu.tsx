@@ -87,6 +87,7 @@ export function LoginMenu() {
           const isHome = location.pathname === '/';
           return !isCurrent || isHome ? (
             <Button
+              className="cursor-pointer"
               key={path}
               variant={variant ?? 'default'}
               size="sm"
