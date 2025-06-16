@@ -28,6 +28,7 @@ export const productsApi = createApi({
         current {
           name(locale: "en-GB")
           masterVariant {
+            sku
             attributesRaw {
               name
               value
@@ -77,6 +78,7 @@ export const productsApi = createApi({
           current {
             name(locale: "en-GB")
             masterVariant {
+              sku
               attributesRaw {
                 name
                 value
@@ -121,6 +123,7 @@ export const productsApi = createApi({
         name(locale: "en-GB")
         description(locale: "en-GB")
         allVariants {
+          sku
           images {
             url
           }
@@ -145,7 +148,6 @@ export const productsApi = createApi({
       }
     }
   }`,
-          // variables: { id },
         },
       }),
       transformResponse: (response: { data: SingleProductResponse }) =>
@@ -166,6 +168,7 @@ export const productsApi = createApi({
           current {
             name(locale: "en-GB")
             masterVariant {
+              sku
               attributesRaw {
                 name
                 value

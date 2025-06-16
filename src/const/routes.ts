@@ -12,6 +12,7 @@ import { SalePage } from '@/pages/sale/salePage';
 import { UserProfilePage } from '@/pages/profile/UserProfilePage';
 import { Sport } from '@/pages/catalog/Sport';
 import { ProductCard } from '@/pages/catalog/ProductCard';
+import { BasketPage } from '@/pages/basket/Basket';
 
 export const routes: RoutePages[] = [
   { path: '/', element: HomePage },
@@ -27,4 +28,5 @@ export const routes: RoutePages[] = [
   { path: '/sale', element: SalePage },
   { path: '/profile', element: UserProfilePage },
   { path: '/product/:productId', element: ProductCard },
+  { path: '/basket', element: BasketPage },
 ];

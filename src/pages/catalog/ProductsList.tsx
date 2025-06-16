@@ -2,18 +2,23 @@ import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
+import { useBasketActions } from '@/hooks/useBasketActions';
+import type { LineItem } from '@/interfaces/cartResponse';
 
-const handleAddToBasket = (event: React.MouseEvent<HTMLButtonElement>) => {
-  event.stopPropagation();
-  console.log('Product add to basket');
-};
-
-const ProductsList = ({ products }: { products: Product[] }) => {
+const ProductsList = ({
+  products,
+  cartItems,
+}: {
+  products: Product[];
+  cartItems: LineItem[];
+}) => {
   const navigate = useNavigate();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
   };
+
+  const { handleAddToBasket, handleRemoveFromBasket } = useBasketActions();
 
   const productItems = products.map(product => {
     const variant = product.masterData.current.masterVariant;
@@ -39,6 +44,12 @@ const ProductsList = ({ products }: { products: Product[] }) => {
       ? 'line-through mr-2'
       : 'font-bold text-[var(--custom-green)] text-lg';
 
+    const sku = variant.sku;
+
+    const isInCart =
+      Array.isArray(cartItems) &&
+      cartItems.some(item => item.variant.sku === sku);
+
     return (
       <li
         key={product.id}
@@ -63,8 +74,18 @@ const ProductsList = ({ products }: { products: Product[] }) => {
             </span>
           </p>
           <div className="text-center pb-3">
-            <Button variant={'green'} onClick={handleAddToBasket}>
-              Add basket
+            <Button
+              variant={isInCart ? 'remove' : 'green'}
+              onClick={event =>
+                isInCart
+                  ? handleRemoveFromBasket(
+                      event,
+                      cartItems.find(item => item.variant.sku === sku)?.id,
+                    )
+                  : handleAddToBasket(sku, 1, event)
+              }
+            >
+              {isInCart ? 'Remove' : 'Add to Cart'}
             </Button>
           </div>
         </div>

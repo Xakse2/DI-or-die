@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/menu/dropdown-menu';
+import { Link } from 'react-router-dom';
 
 export function LoginMenu() {
   const location = useLocation();
@@ -99,7 +100,9 @@ export function LoginMenu() {
       )}
 
       <div className="transition-transform duration-300 hover:scale-110 cursor-pointer">
-        <img src="/basket.svg" alt="basket" />
+        <Link to={'/basket'}>
+          <img src="/basket.svg" alt="basket" />
+        </Link>
       </div>
     </div>
   );

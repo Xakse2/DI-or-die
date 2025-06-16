@@ -1,5 +1,6 @@
 import { useGetAllProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
 import { useEffect, useState } from 'react';
 import { Pagination } from '@/components/pagination/Pagination';
 
@@ -22,6 +23,7 @@ export function AllProducts() {
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
+  const { activeCart } = useCreateBasket();
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -32,12 +34,14 @@ export function AllProducts() {
 
     return <p>{errorMessage}</p>;
   }
-  console.log({ data, error, isLoading });
 
   return (
     <div className="bg-gray-100 w-full">
       <h1 className="text-4xl text-center pt-4">All sneakers</h1>
-      <ProductsList products={data?.products?.results ?? []} />
+      <ProductsList
+        products={data?.products?.results ?? []}
+        cartItems={activeCart?.lineItems ?? []}
+      />
 
       <Pagination
         currentPage={currentPage}
