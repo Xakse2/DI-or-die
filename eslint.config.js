@@ -51,6 +51,7 @@ export default tseslint.config(
             props: true,
             Props: true,
             prev: true,
+            Ref: true,
           },
         },
       ],

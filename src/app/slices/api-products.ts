@@ -23,6 +23,7 @@ export const productsApi = createApi({
       id
       masterData {
         current {
+          name(locale: "en-GB")
           masterVariant {
             attributesRaw {
               name
@@ -71,6 +72,7 @@ export const productsApi = createApi({
       id
         masterData {
           current {
+            name(locale: "en-GB")
             masterVariant {
               attributesRaw {
                 name
@@ -113,6 +115,8 @@ export const productsApi = createApi({
     skus
     masterData {
       current {
+        name(locale: "en-GB")
+        description(locale: "en-GB")
         allVariants {
           images {
             url
@@ -144,6 +148,52 @@ export const productsApi = createApi({
       transformResponse: (response: { data: SingleProductResponse }) =>
         response.data,
     }),
+    getDiscountedProducts: builder.query<ProductsResponse, void>({
+      query: () => ({
+        url: '/graphql',
+        method: 'POST',
+        body: {
+          query: `query {
+            products ( limit: 10,
+      where: "masterData(current(masterVariant(prices(discounted(value(centAmount > 0))))))"
+    ) {
+      results {
+      id
+        masterData {
+          current {
+            name(locale: "en-GB")
+            masterVariant {
+              attributesRaw {
+                name
+                value
+              }
+              prices {
+              discounted {
+                value {
+                  centAmount
+                  currencyCode
+                }
+              }
+              value {
+                centAmount
+                currencyCode
+              }
+            }
+              images {
+              url
+            }
+              key
+            }
+          }
+        }
+          }
+        }
+          }`,
+        },
+      }),
+      transformResponse: (response: { data: ProductsResponse }) =>
+        response.data,
+    }),
   }),
 });
 
@@ -151,4 +201,5 @@ export const {
   useGetAllProductsQuery,
   useGetCategoryProductsQuery,
   useGetProductCardQuery,
+  useGetDiscountedProductsQuery,
 } = productsApi;

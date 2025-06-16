@@ -1,6 +1,8 @@
 import type { Product } from '@/interfaces/prodactResponse';
 import { useNavigate } from 'react-router-dom';
 import './catalog.css';
+import { Button } from '@/components/ui/button/button';
+import { useBasketActions } from '@/hooks/useBasketActions';
 
 const ProductsList = ({ products }: { products: Product[] }) => {
   const navigate = useNavigate();
@@ -8,6 +10,8 @@ const ProductsList = ({ products }: { products: Product[] }) => {
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
   };
+
+  const { handleAddToBasket } = useBasketActions();
 
   const productItems = products.map(product => {
     const variant = product.masterData.current.masterVariant;
@@ -17,13 +21,6 @@ const ProductsList = ({ products }: { products: Product[] }) => {
 
     const brandText =
       typeof brandValue === 'object' ? brandValue.label : brandValue;
-
-    const colorValue = variant.attributesRaw.find(
-      attribute => attribute.name === 'color',
-    )?.value;
-
-    const colorText =
-      typeof colorValue === 'object' ? colorValue.label : colorValue;
 
     const priceObject = variant.prices[0];
     const discountedPriceInCents = priceObject?.discounted?.value.centAmount;
@@ -49,25 +46,29 @@ const ProductsList = ({ products }: { products: Product[] }) => {
         <div className="photo">
           <img src={variant.images[0]?.url} alt="photo" />
         </div>
-        <h3 className="text-xl pl-4">{brandText}</h3>
-        <div className="flex gap-2 items-center text-sm pl-4">
-          color{' '}
-          <p
-            style={{
-              backgroundColor: String(colorText),
-            }}
-            className={`${colorText === 'black' ? 'bg-black' : `bg-${colorText}-500`} w-4 h-4 rounded-full`}
-          ></p>
+        <div className="description-item pl-4">
+          <h3 className="text-xl text-[var(--custom-green)]">
+            {product.masterData.current.name}
+          </h3>
+          <p>{brandText}</p>
+          <p className="pb-1">
+            <span className={priceTextColor}>
+              {formattedPrice} {priceObject?.value.currencyCode}
+            </span>
+            <span className="text-red-600 font-bold text-xl">
+              {formattedDiscountedPrice}{' '}
+              {priceObject?.discounted?.value.currencyCode}
+            </span>
+          </p>
+          <div className="text-center pb-3">
+            <Button
+              variant={'green'}
+              onClick={event => handleAddToBasket(event)}
+            >
+              Add basket
+            </Button>
+          </div>
         </div>
-        <p className="pl-4 pb-1">
-          <span className={priceTextColor}>
-            {formattedPrice} {priceObject?.value.currencyCode}
-          </span>
-          <span className="text-red-600 font-bold text-xl">
-            {formattedDiscountedPrice}{' '}
-            {priceObject?.discounted?.value.currencyCode}
-          </span>
-        </p>
       </li>
     );
   });

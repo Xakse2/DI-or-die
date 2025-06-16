@@ -9,7 +9,7 @@ const genderMen = {
 export function Mens() {
   const { data, error, isLoading } = useGetCategoryProductsQuery(genderMen);
 
-  if (isLoading) return <p>Loadimg...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (error) {
     const errorMessage =
       'status' in error

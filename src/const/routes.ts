@@ -6,12 +6,13 @@ import { AboutPage } from '@/pages/about/AboutPage';
 import { Mens } from '@/pages/catalog/Mens';
 import { Womens } from '@/pages/catalog/Womens';
 import { AllProducts } from '@/pages/catalog/AllProducts';
-import { Conditions } from '@/pages/privacy/Conditions';
-import { Privacy } from '@/pages/privacy/Privacy';
+import Conditions from '@/pages/privacy/Conditions';
+import Privacy from '@/pages/privacy/Privacy';
 import { SalePage } from '@/pages/sale/salePage';
 import { UserProfilePage } from '@/pages/profile/UserProfilePage';
 import { Sport } from '@/pages/catalog/Sport';
 import { ProductCard } from '@/pages/catalog/ProductCard';
+import { BasketPage } from '@/pages/basket/Basket';
 
 export const routes: RoutePages[] = [
   { path: '/', element: HomePage },
@@ -27,4 +28,5 @@ export const routes: RoutePages[] = [
   { path: '/sale', element: SalePage },
   { path: '/profile', element: UserProfilePage },
   { path: '/product/:productId', element: ProductCard },
+  { path: '/basket', element: BasketPage },
 ];

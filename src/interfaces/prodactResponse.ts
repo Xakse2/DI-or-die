@@ -35,8 +35,10 @@ export interface AllVariant {
 }
 
 interface ProductData {
+  name: string;
   allVariants: AllVariant[];
   masterVariant: MasterVariant;
+  description: string;
 }
 
 export interface Product {
