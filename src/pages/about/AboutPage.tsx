@@ -12,7 +12,7 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Roman',
     role: 'Teamlead',
-    bio: 'Planning and organizing team work, distributing tasks, creating a login page',
+    bio: 'Planning and organizing team work, distributing tasks, creating a login page, handle authentication token, creating queries',
     photoUrl:
       'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/58/fae81f042b927fa3201fc3bddafb13.webp',
     githubUrl: 'https://github.com/Xakse2',
@@ -20,7 +20,7 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Yuliya',
     role: 'Frontend Developer',
-    bio: 'Creating Application Components',
+    bio: 'Creating Application Components, creating a home page, adding functionality to the sales page, refactoring and changing styles',
     photoUrl:
       'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/bd/0b535c0940e86a9602bbfbe417fd9f.webp',
     githubUrl: 'https://github.com/YuliyaNaletskaya',
@@ -28,7 +28,7 @@ const teamMembers: TeamMember[] = [
   {
     name: 'Polina',
     role: 'Frontend Developer',
-    bio: 'Creating Application Components, creating a registration page',
+    bio: 'Creating Application Components, creating a registration page, validation, creating tests',
     photoUrl:
       'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/65/e12421ba7dded447e04529e7fabb8e.webp',
     githubUrl: 'https://github.com/linawashere',
