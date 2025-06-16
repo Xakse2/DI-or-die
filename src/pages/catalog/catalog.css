@@ -1,10 +1,10 @@
 .catalog {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.2rem;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  justify-items: center;
 
-  padding: 2rem 1rem;
+  padding: 2rem 0;
 }
 
 .product-item {
@@ -12,8 +12,8 @@
   flex-direction: column;
   justify-content: space-between;
 
-  width: 200px;
-  height: 260px;
+  width: 240px;
+  height: 360px;
   border-radius: 0.6rem;
 
   background-color: #fff;
@@ -32,10 +32,9 @@
 .photo {
   overflow: hidden;
   display: flex;
-  align-items: center;
   justify-content: center;
 
-  height: 180px;
+  height: 200px;
   border-top-left-radius: 0.6rem;
   border-top-right-radius: 0.6rem;
 
@@ -52,10 +51,17 @@
   object-fit: cover;
 }
 
+.description-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 160px;
+}
+
 .image-slider {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 }
 
 .image-slider img {
