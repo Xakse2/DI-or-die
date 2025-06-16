@@ -148,7 +148,6 @@ export const productsApi = createApi({
       }
     }
   }`,
-          // variables: { id },
         },
       }),
       transformResponse: (response: { data: SingleProductResponse }) =>
@@ -169,6 +168,7 @@ export const productsApi = createApi({
           current {
             name(locale: "en-GB")
             masterVariant {
+              sku
               attributesRaw {
                 name
                 value

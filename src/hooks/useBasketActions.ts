@@ -3,14 +3,14 @@ import { useCreateBasket } from '@/hooks/useCreateBasket';
 import { useUpdateCart } from './useUpdateBasket';
 import {
   useCheckActiveBasketQuery,
-  // useGetNewBasketMutation,
+  useGetNewBasketMutation,
 } from '@/app/slices/api-basket';
 import { useDeleteCart } from './useDeleteBasket';
 import { storage } from '@/service/local-storage';
 // import { useDispatch } from 'react-redux';
 
 export function useBasketActions() {
-  // const [createBasket] = useGetNewBasketMutation();
+  const [createBasket] = useGetNewBasketMutation();
   const { data, refetch } = useCheckActiveBasketQuery(undefined, {
     skip:
       storage.getData('authToken') === null &&
@@ -80,22 +80,16 @@ export function useBasketActions() {
   };
 
   const handleClearBasket = async () => {
-    // const activeCart = await getCreateBasket();
-
     if (data) {
       try {
-        console.log('ID текущей корзины перед удалением:', data.id);
         await getDeleteCart(data.id, data.version);
-
-        console.log('Корзина удалена');
         await refetch();
-        // dispatch(basketCreateApi.util.invalidateTags(['Basket']));
-        // await new Promise(resolve => setTimeout(resolve, 500));
-
-        const newBasket = await getCreateBasket();
-        console.log('New basket created:', newBasket?.id);
+        const basketResponse = await createBasket({
+          currency: 'EUR',
+        }).unwrap();
+        return basketResponse;
       } catch (error) {
-        console.error('Error clearing basket:', error);
+        console.error('Error remove cart:', error);
       }
     }
   };

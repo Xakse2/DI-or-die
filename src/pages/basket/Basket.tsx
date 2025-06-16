@@ -51,14 +51,14 @@ export function BasketPage() {
             {activeCart.lineItems.map(item => (
               <li
                 key={item.id}
-                className="flex justify-between gap-8 p-2 border-b"
+                className="flex justify-between gap-2 p-2 border-b"
               >
                 <img
                   src={item.variant.images[0]?.url}
                   alt={item.name['en-GB']}
-                  className="w-22 h-22"
+                  className="w-24 h-24"
                 />
-                <div className="w-[60%]">
+                <div className="flex flex-col gap-1 w-[60%]">
                   <h4 className="font-bold text-[var(--custom-green)]">
                     {item.name['en-GB']}
                   </h4>
@@ -69,8 +69,19 @@ export function BasketPage() {
                       {item.price.value.currencyCode}
                     </span>
                   </p>
-                  <p>Quantity: {item.quantity}</p>
+                  {item?.price?.discounted ? (
+                    <p>
+                      Discount price:{' '}
+                      <span className="font-bold text-red-600">
+                        {(item.price.discounted.value.centAmount / 100).toFixed(
+                          2,
+                        )}{' '}
+                        {item.price.discounted.value.currencyCode}
+                      </span>
+                    </p>
+                  ) : undefined}
                   <div className="flex items-center text-center">
+                    <p>Quantity: </p>
                     <Button
                       variant={'outline'}
                       size={'sm'}
@@ -116,20 +127,23 @@ export function BasketPage() {
               </li>
             ))}
           </ul>
-          <div className="py-4 w-[50%]">
-            <p>
-              Total quantity:{' '}
-              <span className="font-bold text-[var(--custom-green)]">
-                {activeCart.totalLineItemQuantity}
-              </span>
-            </p>
-            <p>
-              Total price:{' '}
-              <span className="font-bold text-[var(--custom-green)]">
-                {(activeCart.totalPrice.centAmount / 100).toFixed(2)}{' '}
-                {activeCart.totalPrice.currencyCode}
-              </span>
-            </p>
+          <div className="flex justify-between items-center py-4 w-full">
+            <div className="w-[20%]"></div>
+            <div>
+              <p>
+                Total quantity:{' '}
+                <span className="font-bold text-[var(--custom-green)]">
+                  {activeCart.totalLineItemQuantity}
+                </span>
+              </p>
+              <p>
+                Total price:{' '}
+                <span className="font-bold text-[var(--custom-green)]">
+                  {(activeCart.totalPrice.centAmount / 100).toFixed(2)}{' '}
+                  {activeCart.totalPrice.currencyCode}
+                </span>
+              </p>
+            </div>
             <Button variant="remove" onClick={handleClearBasket}>
               Clear cart
             </Button>
