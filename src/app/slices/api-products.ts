@@ -11,13 +11,16 @@ export const productsApi = createApi({
   baseQuery: baseQueryWithReauth,
 
   endpoints: builder => ({
-    getAllProducts: builder.query<ProductsResponse, void>({
-      query: () => ({
+    getAllProducts: builder.query<
+      ProductsResponse,
+      { page: number; limit: number }
+    >({
+      query: ({ page, limit }) => ({
         url: '/graphql',
         method: 'POST',
         body: {
           query: `query {
-  products ( limit: 10 ) {
+  products ( offset: ${(page - 1) * limit}, limit: ${limit} ) {
     total
     results {
       id
