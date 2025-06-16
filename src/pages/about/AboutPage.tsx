@@ -13,21 +13,24 @@ const teamMembers: TeamMember[] = [
     name: 'Roman',
     role: 'Teamlead',
     bio: 'Planning and organizing team work, distributing tasks, creating a login page',
-    photoUrl: 'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/58/fae81f042b927fa3201fc3bddafb13.webp',
+    photoUrl:
+      'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/58/fae81f042b927fa3201fc3bddafb13.webp',
     githubUrl: 'https://github.com/Xakse2',
   },
   {
     name: 'Yuliya',
     role: 'Frontend Developer',
     bio: 'Creating Application Components',
-    photoUrl: 'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/bd/0b535c0940e86a9602bbfbe417fd9f.webp',
+    photoUrl:
+      'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/bd/0b535c0940e86a9602bbfbe417fd9f.webp',
     githubUrl: 'https://github.com/YuliyaNaletskaya',
   },
   {
     name: 'Polina',
     role: 'Frontend Developer',
     bio: 'Creating Application Components, creating a registration page',
-    photoUrl: 'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/65/e12421ba7dded447e04529e7fabb8e.webp',
+    photoUrl:
+      'https://46f32a42-e4ff-489b-8e03-b52e4d70fd18.selcdn.net/i/webp/65/e12421ba7dded447e04529e7fabb8e.webp',
     githubUrl: 'https://github.com/linawashere',
   },
 ];
@@ -39,7 +42,10 @@ export function AboutPage() {
         <h2 className="text-2xl font-bold text-center mb-4">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {teamMembers.map((member, index) => (
-            <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-sm text-center team-card">
+            <div
+              key={index}
+              className="bg-gray-100 p-4 rounded-lg shadow-sm text-center team-card"
+            >
               <img
                 src={member.photoUrl}
                 alt={`${member.name}'s photo`}
@@ -89,7 +95,7 @@ export function AboutPage() {
         </p>
       </section>
     </div>
-  )
+  );
 }
 
 export default AboutPage;
