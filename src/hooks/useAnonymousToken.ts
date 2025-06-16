@@ -21,7 +21,6 @@ export function useAnonymousToken() {
         activeToken = 'TOKEN_NOT_FOUND';
       }
     }
-    // dispatch(setToken(activeToken));
 
     return activeToken;
   };

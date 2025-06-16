@@ -12,7 +12,6 @@ export function useCreateBasket() {
     error,
     isLoading,
     isUninitialized,
-    // refetch,
   } = useCheckActiveBasketQuery(undefined, {
     skip:
       storage.getData('authToken') === null &&
@@ -35,7 +34,6 @@ export function useCreateBasket() {
         const basketResponse = await createBasket({
           currency: 'EUR',
         }).unwrap();
-        // await refetch();
         return basketResponse;
       } catch (error) {
         console.error('Error get new basket:', error);

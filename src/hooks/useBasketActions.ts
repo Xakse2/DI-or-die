@@ -7,7 +7,6 @@ import {
 } from '@/app/slices/api-basket';
 import { useDeleteCart } from './useDeleteBasket';
 import { storage } from '@/service/local-storage';
-// import { useDispatch } from 'react-redux';
 
 export function useBasketActions() {
   const [createBasket] = useGetNewBasketMutation();
@@ -20,7 +19,6 @@ export function useBasketActions() {
   const { getCreateBasket } = useCreateBasket();
   const { getUpdateCart } = useUpdateCart();
   const { getDeleteCart } = useDeleteCart();
-  // const dispatch = useDispatch();
 
   const handleAddToBasket = async (
     sku: string,
