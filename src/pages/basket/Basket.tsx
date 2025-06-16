@@ -24,7 +24,7 @@ export function BasketPage() {
     };
 
     void fetchTokenAndCreateBasket();
-  }, [activeToken, getToken]);
+  }, []);
 
   useEffect(() => {
     if (
@@ -37,9 +37,10 @@ export function BasketPage() {
       void getCreateBasket();
     }
   }, [error]);
+
   useEffect(() => {
     console.log('BasketPage ререндерился', new Date().toISOString());
-  });
+  }, []);
 
   return (
     <div className="py-4 w-[80%]">

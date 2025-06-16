@@ -1,15 +1,26 @@
 import { useAnonymousToken } from '@/hooks/useAnonymousToken';
 import { useCreateBasket } from '@/hooks/useCreateBasket';
 import { useUpdateCart } from './useUpdateBasket';
-import { useCheckActiveBasketQuery } from '@/app/slices/api-basket';
+import {
+  useCheckActiveBasketQuery,
+  // useGetNewBasketMutation,
+} from '@/app/slices/api-basket';
 import { useDeleteCart } from './useDeleteBasket';
+import { storage } from '@/service/local-storage';
+// import { useDispatch } from 'react-redux';
 
 export function useBasketActions() {
-  const { data, refetch } = useCheckActiveBasketQuery();
+  // const [createBasket] = useGetNewBasketMutation();
+  const { data, refetch } = useCheckActiveBasketQuery(undefined, {
+    skip:
+      storage.getData('authToken') === null &&
+      storage.getData('anonymousToken') === null,
+  });
   const { getToken } = useAnonymousToken();
   const { getCreateBasket } = useCreateBasket();
   const { getUpdateCart } = useUpdateCart();
   const { getDeleteCart } = useDeleteCart();
+  // const dispatch = useDispatch();
 
   const handleAddToBasket = async (
     sku: string,
@@ -69,22 +80,20 @@ export function useBasketActions() {
   };
 
   const handleClearBasket = async () => {
-    const activeCart = await getCreateBasket();
+    // const activeCart = await getCreateBasket();
 
-    if (activeCart) {
+    if (data) {
       try {
-        console.log('ID текущей корзины перед удалением:', activeCart.id);
-        await getDeleteCart(activeCart.id, activeCart.version);
+        console.log('ID текущей корзины перед удалением:', data.id);
+        await getDeleteCart(data.id, data.version);
 
         console.log('Корзина удалена');
-
-        // dispatch(basketCreateApi.util.invalidateTags(['Basket']));
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // const newBasket = await getCreateBasket();
-        // console.log('New basket created:', newBasket?.id);
-        console.log('ID текущей корзины перед удалением:', activeCart.id);
         await refetch();
+        // dispatch(basketCreateApi.util.invalidateTags(['Basket']));
+        // await new Promise(resolve => setTimeout(resolve, 500));
+
+        const newBasket = await getCreateBasket();
+        console.log('New basket created:', newBasket?.id);
       } catch (error) {
         console.error('Error clearing basket:', error);
       }
