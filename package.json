@@ -16,7 +16,7 @@
     "tw": "tailwindcss-cli"
   },
   "dependencies": {
-    "@radix-ui/react-dropdown-menu": "^2.1.14",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-navigation-menu": "^1.2.12",
     "@radix-ui/react-slot": "^1.2.2",
     "@reduxjs/toolkit": "^2.7.0",
@@ -55,6 +55,7 @@
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "msw": "^2.8.7",
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
     "postcss-scss": "^4.0.9",
