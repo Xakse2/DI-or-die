@@ -11,13 +11,16 @@ export const productsApi = createApi({
   baseQuery: baseQueryWithReauth,
 
   endpoints: builder => ({
-    getAllProducts: builder.query<ProductsResponse, void>({
-      query: () => ({
+    getAllProducts: builder.query<
+      ProductsResponse,
+      { page: number; limit: number }
+    >({
+      query: ({ page, limit }) => ({
         url: '/graphql',
         method: 'POST',
         body: {
           query: `query {
-  products ( limit: 10 ) {
+  products ( offset: ${(page - 1) * limit}, limit: ${limit} ) {
     total
     results {
       id
@@ -25,6 +28,7 @@ export const productsApi = createApi({
         current {
           name(locale: "en-GB")
           masterVariant {
+            sku
             attributesRaw {
               name
               value
@@ -74,6 +78,7 @@ export const productsApi = createApi({
           current {
             name(locale: "en-GB")
             masterVariant {
+              sku
               attributesRaw {
                 name
                 value
@@ -118,6 +123,7 @@ export const productsApi = createApi({
         name(locale: "en-GB")
         description(locale: "en-GB")
         allVariants {
+          sku
           images {
             url
           }
@@ -142,7 +148,6 @@ export const productsApi = createApi({
       }
     }
   }`,
-          // variables: { id },
         },
       }),
       transformResponse: (response: { data: SingleProductResponse }) =>
@@ -163,6 +168,7 @@ export const productsApi = createApi({
           current {
             name(locale: "en-GB")
             masterVariant {
+              sku
               attributesRaw {
                 name
                 value

@@ -2,7 +2,7 @@ interface Image {
   url: string;
 }
 
-interface Price {
+export interface Price {
   value: {
     centAmount: number;
     currencyCode: string;
@@ -20,11 +20,13 @@ interface Attribute {
   value: string | number | { key: string; label: string };
 }
 
-interface MasterVariant {
+export interface MasterVariant {
   attributesRaw: Attribute[];
   prices: Price[];
   images: Image[];
   key: string;
+  sku: string;
+  id: string;
 }
 
 export interface AllVariant {
@@ -32,6 +34,8 @@ export interface AllVariant {
   prices: Price[];
   images: Image[];
   key: string;
+  sku: string;
+  id: string;
 }
 
 interface ProductData {

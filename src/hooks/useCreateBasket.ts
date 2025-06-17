@@ -2,6 +2,7 @@ import {
   useCheckActiveBasketQuery,
   useGetNewBasketMutation,
 } from '@/app/slices/api-basket';
+import type { Cart } from '@/interfaces/cartResponse';
 import { storage } from '@/service/local-storage';
 
 export function useCreateBasket() {
@@ -17,12 +18,15 @@ export function useCreateBasket() {
       storage.getData('anonymousToken') === null,
   });
 
-  const getCreateBasket = async () => {
+  const getCreateBasket = async (): Promise<Cart | undefined> => {
     if (isLoading || isUninitialized) {
       console.log('Waiting for activeCart...');
       await new Promise(resolve => setTimeout(resolve, 300));
     }
 
+    if (activeCart) {
+      return activeCart;
+    }
     console.log('active basket:', activeCart);
     if (!activeCart || (error && 'status' in error && error.status === 404)) {
       console.log('No active cart exists, creating a new one...');
@@ -30,7 +34,7 @@ export function useCreateBasket() {
         const basketResponse = await createBasket({
           currency: 'EUR',
         }).unwrap();
-        console.log('New basket:', basketResponse);
+        return basketResponse;
       } catch (error) {
         console.error('Error get new basket:', error);
       }

@@ -1,5 +1,6 @@
 import { useGetCategoryProductsQuery } from '@/app/slices/api-products';
 import ProductsList from '../catalog/ProductsList';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
 
 const genderWomen = {
   attribute: 'gender',
@@ -8,6 +9,7 @@ const genderWomen = {
 
 export function Womens() {
   const { data, error, isLoading } = useGetCategoryProductsQuery(genderWomen);
+  const { activeCart } = useCreateBasket();
 
   if (isLoading) return <p>Loadimg...</p>;
   if (error) {
@@ -18,12 +20,14 @@ export function Womens() {
 
     return <p>{errorMessage}</p>;
   }
-  console.log({ data, error, isLoading });
 
   return (
     <div className="bg-gray-100 w-full">
       <h1 className="text-4xl text-center pt-4">Womens sneakers</h1>
-      <ProductsList products={data?.products?.results ?? []} />
+      <ProductsList
+        products={data?.products?.results ?? []}
+        cartItems={activeCart?.lineItems ?? []}
+      />
     </div>
   );
 }

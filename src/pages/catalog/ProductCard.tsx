@@ -7,12 +7,13 @@ import { ChevronRightIcon } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import './catalog.css';
 import { useBasketActions } from '@/hooks/useBasketActions';
+import { useCreateBasket } from '@/hooks/useCreateBasket';
 
 export function ProductCard() {
   const { productId } = useParams<{ productId: string }>();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const { handleAddToBasket } = useBasketActions();
+  const { activeCart } = useCreateBasket();
+  const { handleAddToBasket, handleRemoveFromBasket } = useBasketActions();
 
   const { data, error, isLoading } = useGetProductCardQuery(
     productId ? { id: productId } : skipToken,
@@ -88,6 +89,11 @@ export function ProductCard() {
   const images = variants.flatMap(variant =>
     variant.images.map(img => img.url),
   );
+
+  const sku = variants[0].sku;
+  const isInCart =
+    Array.isArray(activeCart?.lineItems) &&
+    activeCart.lineItems.some(item => item.variant.sku === sku);
 
   const nextImage = () =>
     setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
@@ -181,10 +187,19 @@ export function ProductCard() {
           </div>
           <div className="pt-2">
             <Button
-              variant={'green'}
-              onClick={event => handleAddToBasket(event)}
+              variant={isInCart ? 'remove' : 'green'}
+              onClick={() =>
+                isInCart
+                  ? handleRemoveFromBasket(
+                      undefined,
+                      activeCart.lineItems.find(
+                        item => item.variant.sku === sku,
+                      )?.id,
+                    )
+                  : handleAddToBasket(sku, 1)
+              }
             >
-              Add basket
+              {isInCart ? 'Remove' : 'Add to Cart'}
             </Button>
           </div>
         </div>

@@ -3,15 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import './catalog.css';
 import { Button } from '@/components/ui/button/button';
 import { useBasketActions } from '@/hooks/useBasketActions';
+import type { LineItem } from '@/interfaces/cartResponse';
 
-const ProductsList = ({ products }: { products: Product[] }) => {
+const ProductsList = ({
+  products,
+  cartItems,
+}: {
+  products: Product[];
+  cartItems: LineItem[];
+}) => {
   const navigate = useNavigate();
 
   const handleClick = (productId: string) => {
     void navigate(`/product/${productId}`);
   };
 
-  const { handleAddToBasket } = useBasketActions();
+  const { handleAddToBasket, handleRemoveFromBasket } = useBasketActions();
 
   const productItems = products.map(product => {
     const variant = product.masterData.current.masterVariant;
@@ -36,6 +43,12 @@ const ProductsList = ({ products }: { products: Product[] }) => {
     const priceTextColor = discountedPriceInCents
       ? 'line-through mr-2'
       : 'font-bold text-[var(--custom-green)] text-lg';
+
+    const sku = variant.sku;
+
+    const isInCart =
+      Array.isArray(cartItems) &&
+      cartItems.some(item => item.variant.sku === sku);
 
     return (
       <li
@@ -62,10 +75,17 @@ const ProductsList = ({ products }: { products: Product[] }) => {
           </p>
           <div className="text-center pb-3">
             <Button
-              variant={'green'}
-              onClick={event => handleAddToBasket(event)}
+              variant={isInCart ? 'remove' : 'green'}
+              onClick={event =>
+                isInCart
+                  ? handleRemoveFromBasket(
+                      event,
+                      cartItems.find(item => item.variant.sku === sku)?.id,
+                    )
+                  : handleAddToBasket(sku, 1, event)
+              }
             >
-              Add basket
+              {isInCart ? 'Remove' : 'Add to Cart'}
             </Button>
           </div>
         </div>
